@@ -1,0 +1,2273 @@
+
+
+Microchip MPLAB XC8 Assembler V2.30 build 20200825195618 
+                                                                                               Wed Jan 06 11:54:47 2021
+
+Microchip MPLAB XC8 C Compiler v2.30 (Free license) build 20200825195618 Og1 
+     1                           	processor	18F4550
+     2                           	fnconf	rparam,??,?,0
+     3                           	pagewidth 120
+     4                           	opt	flic
+     5                           	psect	smallconst,global,reloc=2,class=SMALLCONST,delta=1,noexec
+     6                           	psect	cinit,global,reloc=2,class=CODE,delta=1
+     7                           	psect	bssCOMRAM,global,class=COMRAM,space=1,delta=1,lowdata,noexec
+     8                           	psect	cstackCOMRAM,global,class=COMRAM,space=1,delta=1,lowdata,noexec
+     9                           	psect	text0,global,reloc=2,class=CODE,delta=1
+    10                           	psect	text1,global,reloc=2,class=CODE,delta=1
+    11                           	psect	text2,global,reloc=2,class=CODE,delta=1,group=1
+    12                           	psect	text3,global,reloc=2,class=CODE,delta=1
+    13                           	psect	text4,global,reloc=2,class=CODE,delta=1,group=2
+    14                           	psect	text5,global,reloc=2,class=CODE,delta=1
+    15                           	psect	intcode,global,reloc=2,class=CODE,delta=1
+    16                           	psect	intcode_body,global,reloc=2,class=CODE,delta=1
+    17                           	psect	intsave_regs,global,class=BIGRAM,space=1,delta=1,noexec
+    18                           	psect	rparam,global,class=COMRAM,space=1,delta=1,noexec
+    19                           	psect	temp,global,ovrld,common,class=COMRAM,space=1,delta=1
+    20                           	psect	idloc,global,abs,ovrld,class=IDLOC,space=5,delta=1,noexec
+    21                           	psect	config,global,abs,ovrld,class=CONFIG,space=4,delta=1,noexec
+    22  0000                     
+    23                           ; Version 2.20
+    24                           ; Generated 12/02/2020 GMT
+    25                           ; 
+    26                           ; Copyright © 2020, Microchip Technology Inc. and its subsidiaries ("Microchip")
+    27                           ; All rights reserved.
+    28                           ; 
+    29                           ; This software is developed by Microchip Technology Inc. and its subsidiaries ("Microch
+      +                          ip").
+    30                           ; 
+    31                           ; Redistribution and use in source and binary forms, with or without modification, are
+    32                           ; permitted provided that the following conditions are met:
+    33                           ; 
+    34                           ;     1. Redistributions of source code must retain the above copyright notice, this lis
+      +                          t of
+    35                           ;        conditions and the following disclaimer.
+    36                           ; 
+    37                           ;     2. Redistributions in binary form must reproduce the above copyright notice, this 
+      +                          list
+    38                           ;        of conditions and the following disclaimer in the documentation and/or other
+    39                           ;        materials provided with the distribution.
+    40                           ; 
+    41                           ;     3. Microchip's name may not be used to endorse or promote products derived from th
+      +                          is
+    42                           ;        software without specific prior written permission.
+    43                           ; 
+    44                           ; THIS SOFTWARE IS PROVIDED BY MICROCHIP "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+    45                           ; INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS F
+      +                          OR
+    46                           ; PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL MICROCHIP BE LIABLE FOR ANY DIRECT, INDIREC
+      +                          T,
+    47                           ; INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING BUT NOT LIMITED TO
+    48                           ; PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA OR PROFITS; OR BUSINESS
+    49                           ; INTERRUPTION) HOWSOEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, ST
+      +                          RICT
+    50                           ; LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE U
+      +                          SE OF
+    51                           ; THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+    52                           ; 
+    53                           ; 
+    54                           ; Code-generator required, PIC18F4550 Definitions
+    55                           ; 
+    56                           ; SFR Addresses
+    57  0000                     _LATD	set	3980
+    58  0000                     _TRISD	set	3989
+    59  0000                     _TRISC	set	3988
+    60  0000                     _OSCCON	set	4051
+    61  0000                     _TXREG	set	4013
+    62  0000                     _SPBRG	set	4015
+    63  0000                     _TXSTA	set	4012
+    64  0000                     _RCSTA	set	4011
+    65  0000                     _RCREG	set	4014
+    66  0000                     _PEIE	set	32662
+    67  0000                     _GIE	set	32663
+    68  0000                     _TXIF	set	31988
+    69  0000                     _TXIE	set	31980
+    70  0000                     _RCIE	set	31981
+    71  0000                     _RCIF	set	31989
+    72                           
+    73                           	psect	smallconst
+    74  000800                     __psmallconst:
+    75                           	callstack 0
+    76  000800  00                 	db	0
+    77  000801                     STR_9:
+    78  000801  0D                 	db	13
+    79  000802  28                 	db	40
+    80  000803  43                 	db	67	;'C'
+    81  000804  29                 	db	41
+    82  000805  20                 	db	32
+    83  000806  41                 	db	65	;'A'
+    84  000807  6C                 	db	108	;'l'
+    85  000808  74                 	db	116	;'t'
+    86  000809  65                 	db	101	;'e'
+    87  00080A  72                 	db	114	;'r'
+    88  00080B  6E                 	db	110	;'n'
+    89  00080C  61                 	db	97	;'a'
+    90  00080D  6E                 	db	110	;'n'
+    91  00080E  63                 	db	99	;'c'
+    92  00080F  69                 	db	105	;'i'
+    93  000810  61                 	db	97	;'a'
+    94  000811  20                 	db	32
+    95  000812  65                 	db	101	;'e'
+    96  000813  6E                 	db	110	;'n'
+    97  000814  74                 	db	116	;'t'
+    98  000815  72                 	db	114	;'r'
+    99  000816  65                 	db	101	;'e'
+   100  000817  20                 	db	32
+   101  000818  6C                 	db	108	;'l'
+   102  000819  65                 	db	101	;'e'
+   103  00081A  64                 	db	100	;'d'
+   104  00081B  73                 	db	115	;'s'
+   105  00081C  20                 	db	32
+   106  00081D  61                 	db	97	;'a'
+   107  00081E  6D                 	db	109	;'m'
+   108  00081F  61                 	db	97	;'a'
+   109  000820  72                 	db	114	;'r'
+   110  000821  65                 	db	101	;'e'
+   111  000822  6C                 	db	108	;'l'
+   112  000823  6F                 	db	111	;'o'
+   113  000824  73                 	db	115	;'s'
+   114  000825  20                 	db	32
+   115  000826  65                 	db	101	;'e'
+   116  000827  20                 	db	32
+   117  000828  76                 	db	118	;'v'
+   118  000829  65                 	db	101	;'e'
+   119  00082A  72                 	db	114	;'r'
+   120  00082B  64                 	db	100	;'d'
+   121  00082C  65                 	db	101	;'e'
+   122  00082D  73                 	db	115	;'s'
+   123  00082E  20                 	db	32
+   124  00082F  0A                 	db	10
+   125  000830  0D                 	db	13
+   126  000831  00                 	db	0
+   127  000832                     STR_7:
+   128  000832  0D                 	db	13
+   129  000833  28                 	db	40
+   130  000834  41                 	db	65	;'A'
+   131  000835  29                 	db	41
+   132  000836  20                 	db	32
+   133  000837  52                 	db	82	;'R'
+   134  000838  6F                 	db	111	;'o'
+   135  000839  74                 	db	116	;'t'
+   136  00083A  61                 	db	97	;'a'
+   137  00083B  63                 	db	99	;'c'
+   138  00083C  61                 	db	97	;'a'
+   139  00083D  6F                 	db	111	;'o'
+   140  00083E  20                 	db	32
+   141  00083F  69                 	db	105	;'i'
+   142  000840  6E                 	db	110	;'n'
+   143  000841  69                 	db	105	;'i'
+   144  000842  6E                 	db	110	;'n'
+   145  000843  74                 	db	116	;'t'
+   146  000844  65                 	db	101	;'e'
+   147  000845  72                 	db	114	;'r'
+   148  000846  72                 	db	114	;'r'
+   149  000847  75                 	db	117	;'u'
+   150  000848  70                 	db	112	;'p'
+   151  000849  74                 	db	116	;'t'
+   152  00084A  61                 	db	97	;'a'
+   153  00084B  20                 	db	32
+   154  00084C  61                 	db	97	;'a'
+   155  00084D  20                 	db	32
+   156  00084E  65                 	db	101	;'e'
+   157  00084F  73                 	db	115	;'s'
+   158  000850  71                 	db	113	;'q'
+   159  000851  75                 	db	117	;'u'
+   160  000852  65                 	db	101	;'e'
+   161  000853  72                 	db	114	;'r'
+   162  000854  64                 	db	100	;'d'
+   163  000855  61                 	db	97	;'a'
+   164  000856  20                 	db	32
+   165  000857  0A                 	db	10
+   166  000858  0D                 	db	13
+   167  000859  00                 	db	0
+   168  00085A                     STR_8:
+   169  00085A  0D                 	db	13
+   170  00085B  28                 	db	40
+   171  00085C  42                 	db	66	;'B'
+   172  00085D  29                 	db	41
+   173  00085E  20                 	db	32
+   174  00085F  52                 	db	82	;'R'
+   175  000860  6F                 	db	111	;'o'
+   176  000861  74                 	db	116	;'t'
+   177  000862  61                 	db	97	;'a'
+   178  000863  63                 	db	99	;'c'
+   179  000864  61                 	db	97	;'a'
+   180  000865  6F                 	db	111	;'o'
+   181  000866  20                 	db	32
+   182  000867  69                 	db	105	;'i'
+   183  000868  6E                 	db	110	;'n'
+   184  000869  69                 	db	105	;'i'
+   185  00086A  6E                 	db	110	;'n'
+   186  00086B  74                 	db	116	;'t'
+   187  00086C  65                 	db	101	;'e'
+   188  00086D  72                 	db	114	;'r'
+   189  00086E  72                 	db	114	;'r'
+   190  00086F  75                 	db	117	;'u'
+   191  000870  70                 	db	112	;'p'
+   192  000871  74                 	db	116	;'t'
+   193  000872  61                 	db	97	;'a'
+   194  000873  20                 	db	32
+   195  000874  61                 	db	97	;'a'
+   196  000875  20                 	db	32
+   197  000876  64                 	db	100	;'d'
+   198  000877  69                 	db	105	;'i'
+   199  000878  72                 	db	114	;'r'
+   200  000879  65                 	db	101	;'e'
+   201  00087A  69                 	db	105	;'i'
+   202  00087B  74                 	db	116	;'t'
+   203  00087C  61                 	db	97	;'a'
+   204  00087D  20                 	db	32
+   205  00087E  0A                 	db	10
+   206  00087F  0D                 	db	13
+   207  000880  00                 	db	0
+   208  000881                     STR_12:
+   209  000881  0D                 	db	13
+   210  000882  28                 	db	40
+   211  000883  46                 	db	70	;'F'
+   212  000884  29                 	db	41
+   213  000885  20                 	db	32
+   214  000886  50                 	db	80	;'P'
+   215  000887  61                 	db	97	;'a'
+   216  000888  72                 	db	114	;'r'
+   217  000889  61                 	db	97	;'a'
+   218  00088A  72                 	db	114	;'r'
+   219  00088B  20                 	db	32
+   220  00088C  71                 	db	113	;'q'
+   221  00088D  75                 	db	117	;'u'
+   222  00088E  61                 	db	97	;'a'
+   223  00088F  6C                 	db	108	;'l'
+   224  000890  71                 	db	113	;'q'
+   225  000891  75                 	db	117	;'u'
+   226  000892  65                 	db	101	;'e'
+   227  000893  72                 	db	114	;'r'
+   228  000894  20                 	db	32
+   229  000895  72                 	db	114	;'r'
+   230  000896  6F                 	db	111	;'o'
+   231  000897  74                 	db	116	;'t'
+   232  000898  61                 	db	97	;'a'
+   233  000899  63                 	db	99	;'c'
+   234  00089A  61                 	db	97	;'a'
+   235  00089B  6F                 	db	111	;'o'
+   236  00089C  20                 	db	32
+   237  00089D  0A                 	db	10
+   238  00089E  0D                 	db	13
+   239  00089F  00                 	db	0
+   240  0008A0                     STR_6:
+   241  0008A0  28                 	db	40
+   242  0008A1  46                 	db	70	;'F'
+   243  0008A2  29                 	db	41
+   244  0008A3  20                 	db	32
+   245  0008A4  50                 	db	80	;'P'
+   246  0008A5  61                 	db	97	;'a'
+   247  0008A6  72                 	db	114	;'r'
+   248  0008A7  61                 	db	97	;'a'
+   249  0008A8  72                 	db	114	;'r'
+   250  0008A9  20                 	db	32
+   251  0008AA  71                 	db	113	;'q'
+   252  0008AB  75                 	db	117	;'u'
+   253  0008AC  61                 	db	97	;'a'
+   254  0008AD  6C                 	db	108	;'l'
+   255  0008AE  71                 	db	113	;'q'
+   256  0008AF  75                 	db	117	;'u'
+   257  0008B0  65                 	db	101	;'e'
+   258  0008B1  72                 	db	114	;'r'
+   259  0008B2  20                 	db	32
+   260  0008B3  72                 	db	114	;'r'
+   261  0008B4  6F                 	db	111	;'o'
+   262  0008B5  74                 	db	116	;'t'
+   263  0008B6  61                 	db	97	;'a'
+   264  0008B7  63                 	db	99	;'c'
+   265  0008B8  61                 	db	97	;'a'
+   266  0008B9  6F                 	db	111	;'o'
+   267  0008BA  20                 	db	32
+   268  0008BB  0A                 	db	10
+   269  0008BC  0D                 	db	13
+   270  0008BD  20                 	db	32
+   271  0008BE  00                 	db	0
+   272  0008BF                     STR_10:
+   273  0008BF  0D                 	db	13
+   274  0008C0  28                 	db	40
+   275  0008C1  44                 	db	68	;'D'
+   276  0008C2  29                 	db	41
+   277  0008C3  20                 	db	32
+   278  0008C4  45                 	db	69	;'E'
+   279  0008C5  66                 	db	102	;'f'
+   280  0008C6  65                 	db	101	;'e'
+   281  0008C7  69                 	db	105	;'i'
+   282  0008C8  74                 	db	116	;'t'
+   283  0008C9  6F                 	db	111	;'o'
+   284  0008CA  20                 	db	32
+   285  0008CB  73                 	db	115	;'s'
+   286  0008CC  61                 	db	97	;'a'
+   287  0008CD  6E                 	db	110	;'n'
+   288  0008CE  66                 	db	102	;'f'
+   289  0008CF  6F                 	db	111	;'o'
+   290  0008D0  6E                 	db	110	;'n'
+   291  0008D1  61                 	db	97	;'a'
+   292  0008D2  20                 	db	32
+   293  0008D3  0A                 	db	10
+   294  0008D4  0D                 	db	13
+   295  0008D5  00                 	db	0
+   296  0008D6                     STR_11:
+   297  0008D6  0D                 	db	13
+   298  0008D7  28                 	db	40
+   299  0008D8  45                 	db	69	;'E'
+   300  0008D9  29                 	db	41
+   301  0008DA  20                 	db	32
+   302  0008DB  42                 	db	66	;'B'
+   303  0008DC  61                 	db	97	;'a'
+   304  0008DD  74                 	db	116	;'t'
+   305  0008DE  65                 	db	101	;'e'
+   306  0008DF  20                 	db	32
+   307  0008E0  65                 	db	101	;'e'
+   308  0008E1  20                 	db	32
+   309  0008E2  76                 	db	118	;'v'
+   310  0008E3  6F                 	db	111	;'o'
+   311  0008E4  6C                 	db	108	;'l'
+   312  0008E5  74                 	db	116	;'t'
+   313  0008E6  61                 	db	97	;'a'
+   314  0008E7  20                 	db	32
+   315  0008E8  0A                 	db	10
+   316  0008E9  0D                 	db	13
+   317  0008EA  00                 	db	0
+   318  0008EB  00                 	db	0	; dummy byte at the end
+   319  0000                     
+   320                           ; #config settings
+   321                           
+   322                           	psect	cinit
+   323  000F30                     __pcinit:
+   324                           	callstack 0
+   325  000F30                     start_initialization:
+   326                           	callstack 0
+   327  000F30                     __initialization:
+   328                           	callstack 0
+   329                           
+   330                           ; Clear objects allocated to COMRAM (7 bytes)
+   331  000F30  EE00  F01D         	lfsr	0,__pbssCOMRAM
+   332  000F34  0E07               	movlw	7
+   333  000F36                     clear_0:
+   334  000F36  6AEE               	clrf	postinc0,c
+   335  000F38  06E8               	decf	wreg,f,c
+   336  000F3A  E1FD               	bnz	clear_0
+   337  000F3C                     end_of_initialization:
+   338                           	callstack 0
+   339  000F3C                     __end_of__initialization:
+   340                           	callstack 0
+   341  000F3C  9024               	bcf	int$flags,0,c	;clear compiler interrupt flag (level 1)
+   342  000F3E  9224               	bcf	int$flags,1,c	;clear compiler interrupt flag (level 2)
+   343  000F40  0E00               	movlw	low (__Lsmallconst shr (0+16))
+   344  000F42  6EF8               	movwf	tblptru,c
+   345  000F44  0E08               	movlw	high __Lsmallconst
+   346  000F46  6EF7               	movwf	tblptrh,c
+   347  000F48  0100               	movlb	0
+   348  000F4A  EF76  F004         	goto	_main	;jump to C main() function
+   349                           
+   350                           	psect	bssCOMRAM
+   351  00001D                     __pbssCOMRAM:
+   352                           	callstack 0
+   353  00001D                     _var2:
+   354                           	callstack 0
+   355  00001D                     	ds	2
+   356  00001F                     _var1:
+   357                           	callstack 0
+   358  00001F                     	ds	2
+   359  000021                     _flag_interrupcao:
+   360                           	callstack 0
+   361  000021                     	ds	2
+   362  000023                     _caracter:
+   363                           	callstack 0
+   364  000023                     	ds	1
+   365                           
+   366                           	psect	cstackCOMRAM
+   367  000001                     __pcstackCOMRAM:
+   368                           	callstack 0
+   369  000001                     ?_strlen:
+   370                           	callstack 0
+   371  000001                     ?___aldiv:
+   372                           	callstack 0
+   373  000001                     envia_serial@valor:
+   374                           	callstack 0
+   375  000001                     strlen@s:
+   376                           	callstack 0
+   377  000001                     ___aldiv@dividend:
+   378                           	callstack 0
+   379                           
+   380                           ; 4 bytes @ 0x0
+   381  000001                     	ds	2
+   382  000003                     strlen@a:
+   383                           	callstack 0
+   384                           
+   385                           ; 2 bytes @ 0x2
+   386  000003                     	ds	2
+   387  000005                     envia_texto_serial@frase:
+   388                           	callstack 0
+   389  000005                     ___aldiv@divisor:
+   390                           	callstack 0
+   391                           
+   392                           ; 4 bytes @ 0x4
+   393  000005                     	ds	2
+   394  000007                     ??_envia_texto_serial:
+   395                           
+   396                           ; 1 bytes @ 0x6
+   397  000007                     	ds	2
+   398  000009                     envia_texto_serial@tamanho:
+   399                           	callstack 0
+   400  000009                     ___aldiv@counter:
+   401                           	callstack 0
+   402                           
+   403                           ; 1 bytes @ 0x8
+   404  000009                     	ds	1
+   405  00000A                     envia_texto_serial@indice:
+   406                           	callstack 0
+   407  00000A                     ___aldiv@sign:
+   408                           	callstack 0
+   409                           
+   410                           ; 1 bytes @ 0x9
+   411  00000A                     	ds	1
+   412  00000B                     ___aldiv@quotient:
+   413                           	callstack 0
+   414                           
+   415                           ; 4 bytes @ 0xA
+   416  00000B                     	ds	4
+   417  00000F                     inicializa_RS232@velocidade:
+   418                           	callstack 0
+   419                           
+   420                           ; 4 bytes @ 0xE
+   421  00000F                     	ds	4
+   422  000013                     inicializa_RS232@modo:
+   423                           	callstack 0
+   424                           
+   425                           ; 2 bytes @ 0x12
+   426  000013                     	ds	2
+   427  000015                     inicializa_RS232@valor:
+   428                           	callstack 0
+   429                           
+   430                           ; 2 bytes @ 0x14
+   431  000015                     	ds	2
+   432  000017                     _inicializa_RS232$707:
+   433                           	callstack 0
+   434                           
+   435                           ; 4 bytes @ 0x16
+   436  000017                     	ds	4
+   437  00001B                     ??_main:
+   438                           
+   439                           ; 1 bytes @ 0x1A
+   440  00001B                     	ds	2
+   441                           
+   442 ;;
+   443 ;;Main: autosize = 0, tempsize = 2, incstack = 0, save=0
+   444 ;;
+   445 ;; *************** function _main *****************
+   446 ;; Defined at:
+   447 ;;		line 58 in file "q5.c"
+   448 ;; Parameters:    Size  Location     Type
+   449 ;;		None
+   450 ;; Auto vars:     Size  Location     Type
+   451 ;;		None
+   452 ;; Return value:  Size  Location     Type
+   453 ;;                  1    wreg      void 
+   454 ;; Registers used:
+   455 ;;		wreg, status,2, status,0, tblptrl, tblptrh, tblptru, cstack
+   456 ;; Tracked objects:
+   457 ;;		On entry : 0/0
+   458 ;;		On exit  : 0/0
+   459 ;;		Unchanged: 0/0
+   460 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   461 ;;      Params:         0       0       0       0       0       0       0       0       0
+   462 ;;      Locals:         0       0       0       0       0       0       0       0       0
+   463 ;;      Temps:          2       0       0       0       0       0       0       0       0
+   464 ;;      Totals:         2       0       0       0       0       0       0       0       0
+   465 ;;Total ram usage:        2 bytes
+   466 ;; Hardware stack levels required when called:    3
+   467 ;; This function calls:
+   468 ;;		_envia_texto_serial
+   469 ;;		_inicializa_RS232
+   470 ;; This function is called by:
+   471 ;;		Startup code after reset
+   472 ;; This function uses a non-reentrant model
+   473 ;;
+   474                           
+   475                           	psect	text0
+   476  0008EC                     __ptext0:
+   477                           	callstack 0
+   478  0008EC                     _main:
+   479                           	callstack 28
+   480  0008EC                     
+   481                           ;q5.c: 60:     envia_texto_serial("(F) Parar qualquer rotacao \n\r ");
+   482  0008EC  0E60               	movlw	96
+   483  0008EE  6ED3               	movwf	211,c	;volatile
+   484                           
+   485                           ;q5.c: 61: 
+   486  0008F0  0EC0               	movlw	192
+   487  0008F2  6E94               	movwf	148,c	;volatile
+   488  0008F4                     
+   489                           ;q5.c: 62:     while (1) {
+   490  0008F4  0E80               	movlw	128
+   491  0008F6  6E0F               	movwf	inicializa_RS232@velocidade^0,c
+   492  0008F8  0E25               	movlw	37
+   493  0008FA  6E10               	movwf	(inicializa_RS232@velocidade+1)^0,c
+   494  0008FC  0E00               	movlw	0
+   495  0008FE  6E11               	movwf	(inicializa_RS232@velocidade+2)^0,c
+   496  000900  0E00               	movlw	0
+   497  000902  6E12               	movwf	(inicializa_RS232@velocidade+3)^0,c
+   498  000904  0E00               	movlw	0
+   499  000906  6E14               	movwf	(inicializa_RS232@modo+1)^0,c
+   500  000908  0E01               	movlw	1
+   501  00090A  6E13               	movwf	inicializa_RS232@modo^0,c
+   502  00090C  ECD8  F006         	call	_inicializa_RS232	;wreg free
+   503  000910                     
+   504                           ;q5.c: 63:         if(flag_interrupcao == 1) {
+   505  000910  8EF2               	bsf	4082,7,c	;volatile
+   506  000912                     
+   507                           ;q5.c: 64:             if (caracter == 'A'){
+   508  000912  8CF2               	bsf	4082,6,c	;volatile
+   509  000914                     
+   510                           ;q5.c: 65:                 envia_texto_serial("\r(A) Rotacao ininterrupta a esquerda \n\
+      +                          r");
+   511  000914  0E00               	movlw	0
+   512  000916  6E95               	movwf	149,c	;volatile
+   513  000918                     
+   514                           ;q5.c: 67:                 while(caracter != 'F'){
+   515  000918  0E33               	movlw	low (STR_7+1)
+   516  00091A  6E05               	movwf	envia_texto_serial@frase^0,c
+   517  00091C  0E08               	movlw	high (STR_7+1)
+   518  00091E  6E06               	movwf	(envia_texto_serial@frase+1)^0,c
+   519  000920  EC56  F007         	call	_envia_texto_serial	;wreg free
+   520  000924                     
+   521                           ;q5.c: 68:                     _delay((unsigned long)((150)*(4000000/4000.0)));
+   522  000924  0E5B               	movlw	low (STR_8+1)
+   523  000926  6E05               	movwf	envia_texto_serial@frase^0,c
+   524  000928  0E08               	movlw	high (STR_8+1)
+   525  00092A  6E06               	movwf	(envia_texto_serial@frase+1)^0,c
+   526  00092C  EC56  F007         	call	_envia_texto_serial	;wreg free
+   527  000930                     
+   528                           ;q5.c: 69:                     LATD = LATD << 1;
+   529  000930  0E02               	movlw	low (STR_9+1)
+   530  000932  6E05               	movwf	envia_texto_serial@frase^0,c
+   531  000934  0E08               	movlw	high (STR_9+1)
+   532  000936  6E06               	movwf	(envia_texto_serial@frase+1)^0,c
+   533  000938  EC56  F007         	call	_envia_texto_serial	;wreg free
+   534  00093C                     
+   535                           ;q5.c: 70:                     if (LATD==0b10000000){
+   536  00093C  0EC0               	movlw	low (STR_10+1)
+   537  00093E  6E05               	movwf	envia_texto_serial@frase^0,c
+   538  000940  0E08               	movlw	high (STR_10+1)
+   539  000942  6E06               	movwf	(envia_texto_serial@frase+1)^0,c
+   540  000944  EC56  F007         	call	_envia_texto_serial	;wreg free
+   541  000948                     
+   542                           ;q5.c: 71:                         _delay((unsigned long)((150)*(4000000/4000.0)));
+   543  000948  0ED7               	movlw	low (STR_11+1)
+   544  00094A  6E05               	movwf	envia_texto_serial@frase^0,c
+   545  00094C  0E08               	movlw	high (STR_11+1)
+   546  00094E  6E06               	movwf	(envia_texto_serial@frase+1)^0,c
+   547  000950  EC56  F007         	call	_envia_texto_serial	;wreg free
+   548  000954                     
+   549                           ;q5.c: 72:                         LATD = 0b00000001;
+   550  000954  0EA0               	movlw	low STR_6
+   551  000956  6E05               	movwf	envia_texto_serial@frase^0,c
+   552  000958  0E08               	movlw	high STR_6
+   553  00095A  6E06               	movwf	(envia_texto_serial@frase+1)^0,c
+   554  00095C  EC56  F007         	call	_envia_texto_serial	;wreg free
+   555  000960                     l1132:
+   556                           
+   557                           ;q5.c: 75:             }
+   558  000960  0421               	decf	_flag_interrupcao^0,w,c
+   559  000962  1022               	iorwf	(_flag_interrupcao+1)^0,w,c
+   560  000964  A4D8               	btfss	status,2,c
+   561  000966  EFB7  F004         	goto	u381
+   562  00096A  EFB9  F004         	goto	u380
+   563  00096E                     u381:
+   564  00096E  EFB0  F004         	goto	l1132
+   565  000972                     u380:
+   566  000972                     
+   567                           ;q5.c: 76:             if (caracter == 'B'){
+   568  000972  0E41               	movlw	65
+   569  000974  1823               	xorwf	_caracter^0,w,c
+   570  000976  A4D8               	btfss	status,2,c
+   571  000978  EFC0  F004         	goto	u391
+   572  00097C  EFC2  F004         	goto	u390
+   573  000980                     u391:
+   574  000980  EFF3  F004         	goto	l1152
+   575  000984                     u390:
+   576  000984                     
+   577                           ;q5.c: 77:                 envia_texto_serial("\r(B) Rotacao ininterrupta a direita \n\r
+      +                          ");
+   578  000984  0E32               	movlw	low STR_7
+   579  000986  6E05               	movwf	envia_texto_serial@frase^0,c
+   580  000988  0E08               	movlw	high STR_7
+   581  00098A  6E06               	movwf	(envia_texto_serial@frase+1)^0,c
+   582  00098C  EC56  F007         	call	_envia_texto_serial	;wreg free
+   583  000990                     l1138:
+   584                           
+   585                           ;q5.c: 78:                 LATD = 0b10000000;
+   586  000990  0E01               	movlw	1
+   587  000992  6E8C               	movwf	140,c	;volatile
+   588                           
+   589                           ;q5.c: 79:                 while(caracter != 'F'){
+   590  000994  EFEA  F004         	goto	l1150
+   591  000998                     l1140:
+   592                           
+   593                           ;q5.c: 80:                     _delay((unsigned long)((150)*(4000000/4000.0)));
+   594  000998  0EC3               	movlw	195
+   595  00099A  6E1B               	movwf	??_main^0,c
+   596  00099C  0ECD               	movlw	205
+   597  00099E                     u567:
+   598  00099E  2EE8               	decfsz	wreg,f,c
+   599  0009A0  D7FE               	bra	u567
+   600  0009A2  2E1B               	decfsz	??_main^0,f,c
+   601  0009A4  D7FC               	bra	u567
+   602  0009A6  F000               	nop	
+   603  0009A8                     
+   604                           ;q5.c: 81:                     LATD = LATD >> 1;
+   605  0009A8  508C               	movf	140,w,c	;volatile
+   606  0009AA  248C               	addwf	140,w,c	;volatile
+   607  0009AC  6E8C               	movwf	140,c	;volatile
+   608  0009AE                     
+   609                           ;q5.c: 82:                     if (LATD==0b00000001){
+   610  0009AE  0E80               	movlw	128
+   611  0009B0  188C               	xorwf	140,w,c	;volatile
+   612  0009B2  A4D8               	btfss	status,2,c
+   613  0009B4  EFDE  F004         	goto	u401
+   614  0009B8  EFE0  F004         	goto	u400
+   615  0009BC                     u401:
+   616  0009BC  EFEA  F004         	goto	l1150
+   617  0009C0                     u400:
+   618  0009C0                     
+   619                           ;q5.c: 83:                         _delay((unsigned long)((150)*(4000000/4000.0)));
+   620  0009C0  0EC3               	movlw	195
+   621  0009C2  6E1B               	movwf	??_main^0,c
+   622  0009C4  0ECD               	movlw	205
+   623  0009C6                     u577:
+   624  0009C6  2EE8               	decfsz	wreg,f,c
+   625  0009C8  D7FE               	bra	u577
+   626  0009CA  2E1B               	decfsz	??_main^0,f,c
+   627  0009CC  D7FC               	bra	u577
+   628  0009CE  F000               	nop	
+   629  0009D0  EFC8  F004         	goto	l1138
+   630  0009D4                     l1150:
+   631                           
+   632                           ;q5.c: 79:                 while(caracter != 'F'){
+   633  0009D4  0E46               	movlw	70
+   634  0009D6  1823               	xorwf	_caracter^0,w,c
+   635  0009D8  A4D8               	btfss	status,2,c
+   636  0009DA  EFF1  F004         	goto	u411
+   637  0009DE  EFF3  F004         	goto	u410
+   638  0009E2                     u411:
+   639  0009E2  EFCC  F004         	goto	l1140
+   640  0009E6                     u410:
+   641  0009E6                     l1152:
+   642                           
+   643                           ;q5.c: 88:             if (caracter == 'C'){
+   644  0009E6  0E42               	movlw	66
+   645  0009E8  1823               	xorwf	_caracter^0,w,c
+   646  0009EA  A4D8               	btfss	status,2,c
+   647  0009EC  EFFA  F004         	goto	u421
+   648  0009F0  EFFC  F004         	goto	u420
+   649  0009F4                     u421:
+   650  0009F4  EF2C  F005         	goto	l1170
+   651  0009F8                     u420:
+   652  0009F8                     
+   653                           ;q5.c: 89:                 envia_texto_serial("\r(C) Alternancia entre leds amarelos e v
+      +                          erdes \n\r");
+   654  0009F8  0E5A               	movlw	low STR_8
+   655  0009FA  6E05               	movwf	envia_texto_serial@frase^0,c
+   656  0009FC  0E08               	movlw	high STR_8
+   657  0009FE  6E06               	movwf	(envia_texto_serial@frase+1)^0,c
+   658  000A00  EC56  F007         	call	_envia_texto_serial	;wreg free
+   659  000A04                     l1156:
+   660                           
+   661                           ;q5.c: 90:                 LATD =0b10101010;
+   662  000A04  0E80               	movlw	128
+   663  000A06  6E8C               	movwf	140,c	;volatile
+   664                           
+   665                           ;q5.c: 91:                 while(caracter != 'F'){
+   666  000A08  EF23  F005         	goto	l1168
+   667  000A0C                     l1158:
+   668                           
+   669                           ;q5.c: 92:                     _delay((unsigned long)((150)*(4000000/4000.0)));
+   670  000A0C  0EC3               	movlw	195
+   671  000A0E  6E1B               	movwf	??_main^0,c
+   672  000A10  0ECD               	movlw	205
+   673  000A12                     u587:
+   674  000A12  2EE8               	decfsz	wreg,f,c
+   675  000A14  D7FE               	bra	u587
+   676  000A16  2E1B               	decfsz	??_main^0,f,c
+   677  000A18  D7FC               	bra	u587
+   678  000A1A  F000               	nop	
+   679  000A1C                     
+   680                           ;q5.c: 93:                     LATD = 0b10101010;
+   681  000A1C  90D8               	bcf	status,0,c
+   682  000A1E  308C               	rrcf	140,w,c	;volatile
+   683  000A20  6E8C               	movwf	140,c	;volatile
+   684  000A22                     
+   685                           ;q5.c: 94:                     _delay((unsigned long)((150)*(4000000/4000.0)));
+   686  000A22  048C               	decf	140,w,c	;volatile
+   687  000A24  A4D8               	btfss	status,2,c
+   688  000A26  EF17  F005         	goto	u431
+   689  000A2A  EF19  F005         	goto	u430
+   690  000A2E                     u431:
+   691  000A2E  EF23  F005         	goto	l1168
+   692  000A32                     u430:
+   693  000A32                     
+   694                           ;q5.c: 95:                     LATD = 0b01010101;
+   695  000A32  0EC3               	movlw	195
+   696  000A34  6E1B               	movwf	??_main^0,c
+   697  000A36  0ECD               	movlw	205
+   698  000A38                     u597:
+   699  000A38  2EE8               	decfsz	wreg,f,c
+   700  000A3A  D7FE               	bra	u597
+   701  000A3C  2E1B               	decfsz	??_main^0,f,c
+   702  000A3E  D7FC               	bra	u597
+   703  000A40  F000               	nop	
+   704  000A42  EF02  F005         	goto	l1156
+   705  000A46                     l1168:
+   706                           
+   707                           ;q5.c: 91:                 while(caracter != 'F'){
+   708  000A46  0E46               	movlw	70
+   709  000A48  1823               	xorwf	_caracter^0,w,c
+   710  000A4A  A4D8               	btfss	status,2,c
+   711  000A4C  EF2A  F005         	goto	u441
+   712  000A50  EF2C  F005         	goto	u440
+   713  000A54                     u441:
+   714  000A54  EF06  F005         	goto	l1158
+   715  000A58                     u440:
+   716  000A58                     l1170:
+   717                           
+   718                           ;q5.c: 100:                 LATD =0b10000001;
+   719  000A58  0E43               	movlw	67
+   720  000A5A  1823               	xorwf	_caracter^0,w,c
+   721  000A5C  A4D8               	btfss	status,2,c
+   722  000A5E  EF33  F005         	goto	u451
+   723  000A62  EF35  F005         	goto	u450
+   724  000A66                     u451:
+   725  000A66  EF5C  F005         	goto	l1184
+   726  000A6A                     u450:
+   727  000A6A                     
+   728                           ;q5.c: 101:                 while(caracter != 'F'){
+   729  000A6A  0E01               	movlw	low STR_9
+   730  000A6C  6E05               	movwf	envia_texto_serial@frase^0,c
+   731  000A6E  0E08               	movlw	high STR_9
+   732  000A70  6E06               	movwf	(envia_texto_serial@frase+1)^0,c
+   733  000A72  EC56  F007         	call	_envia_texto_serial	;wreg free
+   734  000A76                     
+   735                           ;q5.c: 102:                     _delay((unsigned long)((150)*(4000000/4000.0)));
+   736  000A76  0EAA               	movlw	170
+   737  000A78  6E8C               	movwf	140,c	;volatile
+   738                           
+   739                           ;q5.c: 103:                     LATD = 0b01000010;
+   740  000A7A  EF53  F005         	goto	l1182
+   741  000A7E                     l1176:
+   742                           
+   743                           ;q5.c: 104:                     _delay((unsigned long)((150)*(4000000/4000.0)));
+   744  000A7E  0EC3               	movlw	195
+   745  000A80  6E1B               	movwf	??_main^0,c
+   746  000A82  0ECD               	movlw	205
+   747  000A84                     u607:
+   748  000A84  2EE8               	decfsz	wreg,f,c
+   749  000A86  D7FE               	bra	u607
+   750  000A88  2E1B               	decfsz	??_main^0,f,c
+   751  000A8A  D7FC               	bra	u607
+   752  000A8C  F000               	nop	
+   753  000A8E                     
+   754                           ;q5.c: 105:                     LATD = 0b00100100;
+   755  000A8E  0EAA               	movlw	170
+   756  000A90  6E8C               	movwf	140,c	;volatile
+   757  000A92                     
+   758                           ;q5.c: 106:                     _delay((unsigned long)((150)*(4000000/4000.0)));
+   759  000A92  0EC3               	movlw	195
+   760  000A94  6E1B               	movwf	??_main^0,c
+   761  000A96  0ECD               	movlw	205
+   762  000A98                     u617:
+   763  000A98  2EE8               	decfsz	wreg,f,c
+   764  000A9A  D7FE               	bra	u617
+   765  000A9C  2E1B               	decfsz	??_main^0,f,c
+   766  000A9E  D7FC               	bra	u617
+   767  000AA0  F000               	nop	
+   768                           
+   769                           ;q5.c: 107:                     LATD = 0b00011000;
+   770  000AA2  0E55               	movlw	85
+   771  000AA4  6E8C               	movwf	140,c	;volatile
+   772  000AA6                     l1182:
+   773                           
+   774                           ;q5.c: 103:                     LATD = 0b01000010;
+   775  000AA6  0E46               	movlw	70
+   776  000AA8  1823               	xorwf	_caracter^0,w,c
+   777  000AAA  A4D8               	btfss	status,2,c
+   778  000AAC  EF5A  F005         	goto	u461
+   779  000AB0  EF5C  F005         	goto	u460
+   780  000AB4                     u461:
+   781  000AB4  EF3F  F005         	goto	l1176
+   782  000AB8                     u460:
+   783  000AB8                     l1184:
+   784                           
+   785                           ;q5.c: 110:                     _delay((unsigned long)((150)*(4000000/4000.0)));
+   786  000AB8  0E44               	movlw	68
+   787  000ABA  1823               	xorwf	_caracter^0,w,c
+   788  000ABC  A4D8               	btfss	status,2,c
+   789  000ABE  EF63  F005         	goto	u471
+   790  000AC2  EF65  F005         	goto	u470
+   791  000AC6                     u471:
+   792  000AC6  EFB4  F005         	goto	l1210
+   793  000ACA                     u470:
+   794  000ACA                     
+   795                           ;q5.c: 111:                     LATD = 0b01000010;
+   796  000ACA  0EBF               	movlw	low STR_10
+   797  000ACC  6E05               	movwf	envia_texto_serial@frase^0,c
+   798  000ACE  0E08               	movlw	high STR_10
+   799  000AD0  6E06               	movwf	(envia_texto_serial@frase+1)^0,c
+   800  000AD2  EC56  F007         	call	_envia_texto_serial	;wreg free
+   801  000AD6                     l1188:
+   802                           
+   803                           ;q5.c: 112:                     _delay((unsigned long)((150)*(4000000/4000.0)));
+   804  000AD6  0E81               	movlw	129
+   805  000AD8  6E8C               	movwf	140,c	;volatile
+   806                           
+   807                           ;q5.c: 113:                     LATD = 0b10000001;
+   808  000ADA  EFAB  F005         	goto	l1208
+   809  000ADE                     l1190:
+   810                           
+   811                           ;q5.c: 114:                 }
+   812  000ADE  0EC3               	movlw	195
+   813  000AE0  6E1B               	movwf	??_main^0,c
+   814  000AE2  0ECD               	movlw	205
+   815  000AE4                     u627:
+   816  000AE4  2EE8               	decfsz	wreg,f,c
+   817  000AE6  D7FE               	bra	u627
+   818  000AE8  2E1B               	decfsz	??_main^0,f,c
+   819  000AEA  D7FC               	bra	u627
+   820  000AEC  F000               	nop	
+   821  000AEE                     
+   822                           ;q5.c: 115:             }
+   823  000AEE  0E42               	movlw	66
+   824  000AF0  6E8C               	movwf	140,c	;volatile
+   825  000AF2                     
+   826                           ;q5.c: 116:             if (caracter == 'E'){
+   827  000AF2  0EC3               	movlw	195
+   828  000AF4  6E1B               	movwf	??_main^0,c
+   829  000AF6  0ECD               	movlw	205
+   830  000AF8                     u637:
+   831  000AF8  2EE8               	decfsz	wreg,f,c
+   832  000AFA  D7FE               	bra	u637
+   833  000AFC  2E1B               	decfsz	??_main^0,f,c
+   834  000AFE  D7FC               	bra	u637
+   835  000B00  F000               	nop	
+   836                           
+   837                           ;q5.c: 117:                 envia_texto_serial("\r(E) Bate e volta \n\r");
+   838  000B02  0E24               	movlw	36
+   839  000B04  6E8C               	movwf	140,c	;volatile
+   840  000B06                     
+   841                           ;q5.c: 118:                 LATD = 0b10000001;
+   842  000B06  0EC3               	movlw	195
+   843  000B08  6E1B               	movwf	??_main^0,c
+   844  000B0A  0ECD               	movlw	205
+   845  000B0C                     u647:
+   846  000B0C  2EE8               	decfsz	wreg,f,c
+   847  000B0E  D7FE               	bra	u647
+   848  000B10  2E1B               	decfsz	??_main^0,f,c
+   849  000B12  D7FC               	bra	u647
+   850  000B14  F000               	nop	
+   851  000B16                     
+   852                           ;q5.c: 119:                 _delay((unsigned long)((150)*(4000000/4000.0)));
+   853  000B16  0E18               	movlw	24
+   854  000B18  6E8C               	movwf	140,c	;volatile
+   855                           
+   856                           ;q5.c: 120:                 var1 = 0b00000001;
+   857  000B1A  0EC3               	movlw	195
+   858  000B1C  6E1B               	movwf	??_main^0,c
+   859  000B1E  0ECD               	movlw	205
+   860  000B20                     u657:
+   861  000B20  2EE8               	decfsz	wreg,f,c
+   862  000B22  D7FE               	bra	u657
+   863  000B24  2E1B               	decfsz	??_main^0,f,c
+   864  000B26  D7FC               	bra	u657
+   865  000B28  F000               	nop	
+   866  000B2A                     
+   867                           ;q5.c: 121:                 var2 = 0b10000000;
+   868  000B2A  0E24               	movlw	36
+   869  000B2C  6E8C               	movwf	140,c	;volatile
+   870  000B2E                     
+   871                           ;q5.c: 122:                 while(caracter != 'F'){
+   872  000B2E  0EC3               	movlw	195
+   873  000B30  6E1B               	movwf	??_main^0,c
+   874  000B32  0ECD               	movlw	205
+   875  000B34                     u667:
+   876  000B34  2EE8               	decfsz	wreg,f,c
+   877  000B36  D7FE               	bra	u667
+   878  000B38  2E1B               	decfsz	??_main^0,f,c
+   879  000B3A  D7FC               	bra	u667
+   880  000B3C  F000               	nop	
+   881                           
+   882                           ;q5.c: 123:                     while(var1 != 0b10000000){
+   883  000B3E  0E42               	movlw	66
+   884  000B40  6E8C               	movwf	140,c	;volatile
+   885  000B42                     
+   886                           ;q5.c: 124:                         if (caracter == 'F') break;
+   887  000B42  0EC3               	movlw	195
+   888  000B44  6E1B               	movwf	??_main^0,c
+   889  000B46  0ECD               	movlw	205
+   890  000B48                     u677:
+   891  000B48  2EE8               	decfsz	wreg,f,c
+   892  000B4A  D7FE               	bra	u677
+   893  000B4C  2E1B               	decfsz	??_main^0,f,c
+   894  000B4E  D7FC               	bra	u677
+   895  000B50  F000               	nop	
+   896  000B52  EF6B  F005         	goto	l1188
+   897  000B56                     l1208:
+   898                           
+   899                           ;q5.c: 113:                     LATD = 0b10000001;
+   900  000B56  0E46               	movlw	70
+   901  000B58  1823               	xorwf	_caracter^0,w,c
+   902  000B5A  A4D8               	btfss	status,2,c
+   903  000B5C  EFB2  F005         	goto	u481
+   904  000B60  EFB4  F005         	goto	u480
+   905  000B64                     u481:
+   906  000B64  EF6F  F005         	goto	l1190
+   907  000B68                     u480:
+   908  000B68                     l1210:
+   909                           
+   910                           ;q5.c: 128:                         _delay((unsigned long)((150)*(4000000/4000.0)));
+   911  000B68  0E45               	movlw	69
+   912  000B6A  1823               	xorwf	_caracter^0,w,c
+   913  000B6C  A4D8               	btfss	status,2,c
+   914  000B6E  EFBB  F005         	goto	u491
+   915  000B72  EFBD  F005         	goto	u490
+   916  000B76                     u491:
+   917  000B76  EF39  F006         	goto	l1244
+   918  000B7A                     u490:
+   919  000B7A                     
+   920                           ;q5.c: 129:                     }
+   921  000B7A  0ED6               	movlw	low STR_11
+   922  000B7C  6E05               	movwf	envia_texto_serial@frase^0,c
+   923  000B7E  0E08               	movlw	high STR_11
+   924  000B80  6E06               	movwf	(envia_texto_serial@frase+1)^0,c
+   925  000B82  EC56  F007         	call	_envia_texto_serial	;wreg free
+   926  000B86                     
+   927                           ;q5.c: 130:                     while(var1 != 0b00000001){
+   928  000B86  0E81               	movlw	129
+   929  000B88  6E8C               	movwf	140,c	;volatile
+   930  000B8A                     
+   931                           ;q5.c: 131:                         if (caracter == 'F') break;
+   932  000B8A  0EC3               	movlw	195
+   933  000B8C  6E1B               	movwf	??_main^0,c
+   934  000B8E  0ECD               	movlw	205
+   935  000B90                     u687:
+   936  000B90  2EE8               	decfsz	wreg,f,c
+   937  000B92  D7FE               	bra	u687
+   938  000B94  2E1B               	decfsz	??_main^0,f,c
+   939  000B96  D7FC               	bra	u687
+   940  000B98  F000               	nop	
+   941  000B9A                     
+   942                           ;q5.c: 132:                         var1 = var1 >> 1;
+   943  000B9A  0E00               	movlw	0
+   944  000B9C  6E20               	movwf	(_var1+1)^0,c
+   945  000B9E  0E01               	movlw	1
+   946  000BA0  6E1F               	movwf	_var1^0,c
+   947  000BA2                     
+   948                           ;q5.c: 133:                         var2 = var2 << 1;
+   949  000BA2  0E00               	movlw	0
+   950  000BA4  6E1E               	movwf	(_var2+1)^0,c
+   951  000BA6  0E80               	movlw	128
+   952  000BA8  6E1D               	movwf	_var2^0,c
+   953                           
+   954                           ;q5.c: 134:                         LATD = (var1 | var2);
+   955  000BAA  EF30  F006         	goto	l1242
+   956  000BAE                     l1222:
+   957                           
+   958                           ;q5.c: 136:                     }
+   959  000BAE  0E46               	movlw	70
+   960  000BB0  1823               	xorwf	_caracter^0,w,c
+   961  000BB2  A4D8               	btfss	status,2,c
+   962  000BB4  EFDE  F005         	goto	u501
+   963  000BB8  EFE0  F005         	goto	u500
+   964  000BBC                     u501:
+   965  000BBC  EFE2  F005         	goto	l1226
+   966  000BC0                     u500:
+   967  000BC0  EF27  F006         	goto	l1240
+   968  000BC4                     l1226:
+   969                           
+   970                           ;q5.c: 137:                 }
+   971  000BC4  90D8               	bcf	status,0,c
+   972  000BC6  341F               	rlcf	_var1^0,w,c
+   973  000BC8  6E1F               	movwf	_var1^0,c
+   974  000BCA  3420               	rlcf	(_var1+1)^0,w,c
+   975  000BCC  6E20               	movwf	(_var1+1)^0,c
+   976                           
+   977                           ;q5.c: 138:             }
+   978  000BCE  341E               	rlcf	(_var2+1)^0,w,c
+   979  000BD0  301E               	rrcf	(_var2+1)^0,w,c
+   980  000BD2  6E1B               	movwf	??_main^0,c
+   981  000BD4  301D               	rrcf	_var2^0,w,c
+   982  000BD6  6E1D               	movwf	_var2^0,c
+   983  000BD8  C01B  F01E         	movff	??_main,_var2+1
+   984                           
+   985                           ;q5.c: 139:             if (caracter == 'F')
+   986  000BDC  501F               	movf	_var1^0,w,c
+   987  000BDE  101D               	iorwf	_var2^0,w,c
+   988  000BE0  6E8C               	movwf	140,c	;volatile
+   989  000BE2                     
+   990                           ;q5.c: 140:             {
+   991  000BE2  0EC3               	movlw	195
+   992  000BE4  6E1B               	movwf	??_main^0,c
+   993  000BE6  0ECD               	movlw	205
+   994  000BE8                     u697:
+   995  000BE8  2EE8               	decfsz	wreg,f,c
+   996  000BEA  D7FE               	bra	u697
+   997  000BEC  2E1B               	decfsz	??_main^0,f,c
+   998  000BEE  D7FC               	bra	u697
+   999  000BF0  F000               	nop	
+  1000  000BF2                     l1230:
+  1001                           
+  1002                           ;q5.c: 135:                         _delay((unsigned long)((150)*(4000000/4000.0)));
+  1003  000BF2  0E80               	movlw	128
+  1004  000BF4  181F               	xorwf	_var1^0,w,c
+  1005  000BF6  1020               	iorwf	(_var1+1)^0,w,c
+  1006  000BF8  A4D8               	btfss	status,2,c
+  1007  000BFA  EF01  F006         	goto	u511
+  1008  000BFE  EF03  F006         	goto	u510
+  1009  000C02                     u511:
+  1010  000C02  EFD7  F005         	goto	l1222
+  1011  000C06                     u510:
+  1012  000C06  EF27  F006         	goto	l1240
+  1013  000C0A                     l1232:
+  1014                           
+  1015                           ;q5.c: 143:                 flag_interrupcao = 0;
+  1016  000C0A  0E46               	movlw	70
+  1017  000C0C  1823               	xorwf	_caracter^0,w,c
+  1018  000C0E  A4D8               	btfss	status,2,c
+  1019  000C10  EF0C  F006         	goto	u521
+  1020  000C14  EF0E  F006         	goto	u520
+  1021  000C18                     u521:
+  1022  000C18  EF10  F006         	goto	l1236
+  1023  000C1C                     u520:
+  1024  000C1C  EF30  F006         	goto	l1242
+  1025  000C20                     l1236:
+  1026                           
+  1027                           ;q5.c: 144:             }
+  1028  000C20  3420               	rlcf	(_var1+1)^0,w,c
+  1029  000C22  3020               	rrcf	(_var1+1)^0,w,c
+  1030  000C24  6E1B               	movwf	??_main^0,c
+  1031  000C26  301F               	rrcf	_var1^0,w,c
+  1032  000C28  6E1F               	movwf	_var1^0,c
+  1033  000C2A  C01B  F020         	movff	??_main,_var1+1
+  1034                           
+  1035                           ;q5.c: 145:         }
+  1036  000C2E  90D8               	bcf	status,0,c
+  1037  000C30  341D               	rlcf	_var2^0,w,c
+  1038  000C32  6E1D               	movwf	_var2^0,c
+  1039  000C34  341E               	rlcf	(_var2+1)^0,w,c
+  1040  000C36  6E1E               	movwf	(_var2+1)^0,c
+  1041                           
+  1042                           ;q5.c: 146:     }
+  1043  000C38  501F               	movf	_var1^0,w,c
+  1044  000C3A  101D               	iorwf	_var2^0,w,c
+  1045  000C3C  6E8C               	movwf	140,c	;volatile
+  1046  000C3E                     
+  1047                           ;q5.c: 147: }
+  1048  000C3E  0EC3               	movlw	195
+  1049  000C40  6E1B               	movwf	??_main^0,c
+  1050  000C42  0ECD               	movlw	205
+  1051  000C44                     u707:
+  1052  000C44  2EE8               	decfsz	wreg,f,c
+  1053  000C46  D7FE               	bra	u707
+  1054  000C48  2E1B               	decfsz	??_main^0,f,c
+  1055  000C4A  D7FC               	bra	u707
+  1056  000C4C  F000               	nop	
+  1057  000C4E                     l1240:
+  1058                           
+  1059                           ;q5.c: 142:                 LATD = 0b00000000;
+  1060  000C4E  041F               	decf	_var1^0,w,c
+  1061  000C50  1020               	iorwf	(_var1+1)^0,w,c
+  1062  000C52  A4D8               	btfss	status,2,c
+  1063  000C54  EF2E  F006         	goto	u531
+  1064  000C58  EF30  F006         	goto	u530
+  1065  000C5C                     u531:
+  1066  000C5C  EF05  F006         	goto	l1232
+  1067  000C60                     u530:
+  1068  000C60                     l1242:
+  1069                           
+  1070                           ;q5.c: 134:                         LATD = (var1 | var2);
+  1071  000C60  0E46               	movlw	70
+  1072  000C62  1823               	xorwf	_caracter^0,w,c
+  1073  000C64  A4D8               	btfss	status,2,c
+  1074  000C66  EF37  F006         	goto	u541
+  1075  000C6A  EF39  F006         	goto	u540
+  1076  000C6E                     u541:
+  1077  000C6E  EFF9  F005         	goto	l1230
+  1078  000C72                     u540:
+  1079  000C72                     l1244:
+  1080  000C72  0E46               	movlw	70
+  1081  000C74  1823               	xorwf	_caracter^0,w,c
+  1082  000C76  A4D8               	btfss	status,2,c
+  1083  000C78  EF40  F006         	goto	u551
+  1084  000C7C  EF42  F006         	goto	u550
+  1085  000C80                     u551:
+  1086  000C80  EFB0  F004         	goto	l1132
+  1087  000C84                     u550:
+  1088  000C84  0E81               	movlw	low STR_12
+  1089  000C86  6E05               	movwf	envia_texto_serial@frase^0,c
+  1090  000C88  0E08               	movlw	high STR_12
+  1091  000C8A  6E06               	movwf	(envia_texto_serial@frase+1)^0,c
+  1092  000C8C  EC56  F007         	call	_envia_texto_serial	;wreg free
+  1093  000C90  0E00               	movlw	0
+  1094  000C92  6E8C               	movwf	140,c	;volatile
+  1095  000C94  0E00               	movlw	0
+  1096  000C96  6E22               	movwf	(_flag_interrupcao+1)^0,c
+  1097  000C98  0E00               	movlw	0
+  1098  000C9A  6E21               	movwf	_flag_interrupcao^0,c
+  1099  000C9C  EFB0  F004         	goto	l1132
+  1100  000CA0  EF07  F000         	goto	start
+  1101  000CA4                     __end_of_main:
+  1102                           	callstack 0
+  1103                           
+  1104 ;; *************** function _inicializa_RS232 *****************
+  1105 ;; Defined at:
+  1106 ;;		line 22 in file "q5.c"
+  1107 ;; Parameters:    Size  Location     Type
+  1108 ;;  velocidade      4   14[COMRAM] long 
+  1109 ;;  modo            2   18[COMRAM] int 
+  1110 ;; Auto vars:     Size  Location     Type
+  1111 ;;  valor           2   20[COMRAM] int 
+  1112 ;; Return value:  Size  Location     Type
+  1113 ;;                  1    wreg      void 
+  1114 ;; Registers used:
+  1115 ;;		wreg, status,2, status,0, cstack
+  1116 ;; Tracked objects:
+  1117 ;;		On entry : 0/0
+  1118 ;;		On exit  : 0/0
+  1119 ;;		Unchanged: 0/0
+  1120 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  1121 ;;      Params:         6       0       0       0       0       0       0       0       0
+  1122 ;;      Locals:         6       0       0       0       0       0       0       0       0
+  1123 ;;      Temps:          0       0       0       0       0       0       0       0       0
+  1124 ;;      Totals:        12       0       0       0       0       0       0       0       0
+  1125 ;;Total ram usage:       12 bytes
+  1126 ;; Hardware stack levels used:    1
+  1127 ;; Hardware stack levels required when called:    2
+  1128 ;; This function calls:
+  1129 ;;		___aldiv
+  1130 ;; This function is called by:
+  1131 ;;		_main
+  1132 ;; This function uses a non-reentrant model
+  1133 ;;
+  1134                           
+  1135                           	psect	text1
+  1136  000DB0                     __ptext1:
+  1137                           	callstack 0
+  1138  000DB0                     _inicializa_RS232:
+  1139                           	callstack 28
+  1140  000DB0                     
+  1141                           ;q5.c: 22:     };q5.c: 23:     SPBRG = valor;;q5.c: 24:     RCIE = 1;
+  1142  000DB0  0E90               	movlw	144
+  1143  000DB2  6EAB               	movwf	171,c	;volatile
+  1144  000DB4                     
+  1145                           ;q5.c: 25:     TXIE = 0;;q5.c: 26: 
+  1146  000DB4  0413               	decf	inicializa_RS232@modo^0,w,c
+  1147  000DB6  1014               	iorwf	(inicializa_RS232@modo+1)^0,w,c
+  1148  000DB8  A4D8               	btfss	status,2,c
+  1149  000DBA  EFE1  F006         	goto	u361
+  1150  000DBE  EFE3  F006         	goto	u360
+  1151  000DC2                     u361:
+  1152  000DC2  EF1B  F007         	goto	l1088
+  1153  000DC6                     u360:
+  1154  000DC6                     
+  1155                           ;q5.c: 27: }
+  1156  000DC6  0E24               	movlw	36
+  1157  000DC8  6EAC               	movwf	172,c	;volatile
+  1158  000DCA                     
+  1159                           ;q5.c: 28: 
+  1160  000DCA  C00F  F005         	movff	inicializa_RS232@velocidade,___aldiv@divisor
+  1161  000DCE  C010  F006         	movff	inicializa_RS232@velocidade+1,___aldiv@divisor+1
+  1162  000DD2  C011  F007         	movff	inicializa_RS232@velocidade+2,___aldiv@divisor+2
+  1163  000DD6  C012  F008         	movff	inicializa_RS232@velocidade+3,___aldiv@divisor+3
+  1164  000DDA  0E00               	movlw	0
+  1165  000DDC  6E01               	movwf	___aldiv@dividend^0,c
+  1166  000DDE  0E09               	movlw	9
+  1167  000DE0  6E02               	movwf	(___aldiv@dividend+1)^0,c
+  1168  000DE2  0E3D               	movlw	61
+  1169  000DE4  6E03               	movwf	(___aldiv@dividend+2)^0,c
+  1170  000DE6  0E00               	movlw	0
+  1171  000DE8  6E04               	movwf	(___aldiv@dividend+3)^0,c
+  1172  000DEA  EC52  F006         	call	___aldiv	;wreg free
+  1173  000DEE  0EF0               	movlw	240
+  1174  000DF0  2401               	addwf	?___aldiv^0,w,c
+  1175  000DF2  6E17               	movwf	_inicializa_RS232$707^0,c
+  1176  000DF4  0EFF               	movlw	255
+  1177  000DF6  2002               	addwfc	(?___aldiv+1)^0,w,c
+  1178  000DF8  6E18               	movwf	(_inicializa_RS232$707+1)^0,c
+  1179  000DFA  0EFF               	movlw	255
+  1180  000DFC  2003               	addwfc	(?___aldiv+2)^0,w,c
+  1181  000DFE  6E19               	movwf	(_inicializa_RS232$707+2)^0,c
+  1182  000E00  0EFF               	movlw	255
+  1183  000E02  2004               	addwfc	(?___aldiv+3)^0,w,c
+  1184  000E04  6E1A               	movwf	(_inicializa_RS232$707+3)^0,c
+  1185  000E06                     
+  1186                           ;q5.c: 28: 
+  1187  000E06  C017  F001         	movff	_inicializa_RS232$707,___aldiv@dividend
+  1188  000E0A  C018  F002         	movff	_inicializa_RS232$707+1,___aldiv@dividend+1
+  1189  000E0E  C019  F003         	movff	_inicializa_RS232$707+2,___aldiv@dividend+2
+  1190  000E12  C01A  F004         	movff	_inicializa_RS232$707+3,___aldiv@dividend+3
+  1191  000E16  0E10               	movlw	16
+  1192  000E18  6E05               	movwf	___aldiv@divisor^0,c
+  1193  000E1A  0E00               	movlw	0
+  1194  000E1C  6E06               	movwf	(___aldiv@divisor+1)^0,c
+  1195  000E1E  0E00               	movlw	0
+  1196  000E20  6E07               	movwf	(___aldiv@divisor+2)^0,c
+  1197  000E22  0E00               	movlw	0
+  1198  000E24  6E08               	movwf	(___aldiv@divisor+3)^0,c
+  1199  000E26  EC52  F006         	call	___aldiv	;wreg free
+  1200  000E2A  C001  F015         	movff	?___aldiv,inicializa_RS232@valor
+  1201  000E2E  C002  F016         	movff	?___aldiv+1,inicializa_RS232@valor+1
+  1202                           
+  1203                           ;q5.c: 29: void envia_serial(char valor)
+  1204  000E32  EF51  F007         	goto	l1094
+  1205  000E36                     l1088:
+  1206                           
+  1207                           ;q5.c: 31:     TXIF = 0;
+  1208  000E36  0E20               	movlw	32
+  1209  000E38  6EAC               	movwf	172,c	;volatile
+  1210  000E3A                     
+  1211                           ;q5.c: 32:     TXREG = valor;
+  1212  000E3A  C00F  F005         	movff	inicializa_RS232@velocidade,___aldiv@divisor
+  1213  000E3E  C010  F006         	movff	inicializa_RS232@velocidade+1,___aldiv@divisor+1
+  1214  000E42  C011  F007         	movff	inicializa_RS232@velocidade+2,___aldiv@divisor+2
+  1215  000E46  C012  F008         	movff	inicializa_RS232@velocidade+3,___aldiv@divisor+3
+  1216  000E4A  0E00               	movlw	0
+  1217  000E4C  6E01               	movwf	___aldiv@dividend^0,c
+  1218  000E4E  0E09               	movlw	9
+  1219  000E50  6E02               	movwf	(___aldiv@dividend+1)^0,c
+  1220  000E52  0E3D               	movlw	61
+  1221  000E54  6E03               	movwf	(___aldiv@dividend+2)^0,c
+  1222  000E56  0E00               	movlw	0
+  1223  000E58  6E04               	movwf	(___aldiv@dividend+3)^0,c
+  1224  000E5A  EC52  F006         	call	___aldiv	;wreg free
+  1225  000E5E  0EC0               	movlw	192
+  1226  000E60  2401               	addwf	?___aldiv^0,w,c
+  1227  000E62  6E17               	movwf	_inicializa_RS232$707^0,c
+  1228  000E64  0EFF               	movlw	255
+  1229  000E66  2002               	addwfc	(?___aldiv+1)^0,w,c
+  1230  000E68  6E18               	movwf	(_inicializa_RS232$707+1)^0,c
+  1231  000E6A  0EFF               	movlw	255
+  1232  000E6C  2003               	addwfc	(?___aldiv+2)^0,w,c
+  1233  000E6E  6E19               	movwf	(_inicializa_RS232$707+2)^0,c
+  1234  000E70  0EFF               	movlw	255
+  1235  000E72  2004               	addwfc	(?___aldiv+3)^0,w,c
+  1236  000E74  6E1A               	movwf	(_inicializa_RS232$707+3)^0,c
+  1237  000E76                     
+  1238                           ;q5.c: 32:     TXREG = valor;
+  1239  000E76  C017  F001         	movff	_inicializa_RS232$707,___aldiv@dividend
+  1240  000E7A  C018  F002         	movff	_inicializa_RS232$707+1,___aldiv@dividend+1
+  1241  000E7E  C019  F003         	movff	_inicializa_RS232$707+2,___aldiv@dividend+2
+  1242  000E82  C01A  F004         	movff	_inicializa_RS232$707+3,___aldiv@dividend+3
+  1243  000E86  0E40               	movlw	64
+  1244  000E88  6E05               	movwf	___aldiv@divisor^0,c
+  1245  000E8A  0E00               	movlw	0
+  1246  000E8C  6E06               	movwf	(___aldiv@divisor+1)^0,c
+  1247  000E8E  0E00               	movlw	0
+  1248  000E90  6E07               	movwf	(___aldiv@divisor+2)^0,c
+  1249  000E92  0E00               	movlw	0
+  1250  000E94  6E08               	movwf	(___aldiv@divisor+3)^0,c
+  1251  000E96  EC52  F006         	call	___aldiv	;wreg free
+  1252  000E9A  C001  F015         	movff	?___aldiv,inicializa_RS232@valor
+  1253  000E9E  C002  F016         	movff	?___aldiv+1,inicializa_RS232@valor+1
+  1254  000EA2                     l1094:
+  1255                           
+  1256                           ;q5.c: 35: void envia_texto_serial(const char frase[])
+  1257  000EA2  C015  FFAF         	movff	inicializa_RS232@valor,4015	;volatile
+  1258  000EA6                     
+  1259                           ;q5.c: 36: {
+  1260  000EA6  8A9D               	bsf	3997,5,c	;volatile
+  1261  000EA8                     
+  1262                           ;q5.c: 37:     char indice = 0;
+  1263  000EA8  989D               	bcf	3997,4,c	;volatile
+  1264  000EAA  0012               	return		;funcret
+  1265  000EAC                     __end_of_inicializa_RS232:
+  1266                           	callstack 0
+  1267                           
+  1268 ;; *************** function ___aldiv *****************
+  1269 ;; Defined at:
+  1270 ;;		line 7 in file "C:\Program Files\Microchip\xc8\v2.30\pic\sources\c99\common\aldiv.c"
+  1271 ;; Parameters:    Size  Location     Type
+  1272 ;;  dividend        4    0[COMRAM] long 
+  1273 ;;  divisor         4    4[COMRAM] long 
+  1274 ;; Auto vars:     Size  Location     Type
+  1275 ;;  quotient        4   10[COMRAM] long 
+  1276 ;;  sign            1    9[COMRAM] unsigned char 
+  1277 ;;  counter         1    8[COMRAM] unsigned char 
+  1278 ;; Return value:  Size  Location     Type
+  1279 ;;                  4    0[COMRAM] long 
+  1280 ;; Registers used:
+  1281 ;;		wreg, status,2, status,0
+  1282 ;; Tracked objects:
+  1283 ;;		On entry : 0/0
+  1284 ;;		On exit  : 0/0
+  1285 ;;		Unchanged: 0/0
+  1286 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  1287 ;;      Params:         8       0       0       0       0       0       0       0       0
+  1288 ;;      Locals:         6       0       0       0       0       0       0       0       0
+  1289 ;;      Temps:          0       0       0       0       0       0       0       0       0
+  1290 ;;      Totals:        14       0       0       0       0       0       0       0       0
+  1291 ;;Total ram usage:       14 bytes
+  1292 ;; Hardware stack levels used:    1
+  1293 ;; Hardware stack levels required when called:    1
+  1294 ;; This function calls:
+  1295 ;;		Nothing
+  1296 ;; This function is called by:
+  1297 ;;		_inicializa_RS232
+  1298 ;; This function uses a non-reentrant model
+  1299 ;;
+  1300                           
+  1301                           	psect	text2
+  1302  000CA4                     __ptext2:
+  1303                           	callstack 0
+  1304  000CA4                     ___aldiv:
+  1305                           	callstack 28
+  1306  000CA4  0E00               	movlw	0
+  1307  000CA6  6E0A               	movwf	___aldiv@sign^0,c
+  1308  000CA8  BE08               	btfsc	(___aldiv@divisor+3)^0,7,c
+  1309  000CAA  EF5B  F006         	goto	u300
+  1310  000CAE  EF59  F006         	goto	u301
+  1311  000CB2                     u301:
+  1312  000CB2  EF65  F006         	goto	l1042
+  1313  000CB6                     u300:
+  1314  000CB6  1E08               	comf	(___aldiv@divisor+3)^0,f,c
+  1315  000CB8  1E07               	comf	(___aldiv@divisor+2)^0,f,c
+  1316  000CBA  1E06               	comf	(___aldiv@divisor+1)^0,f,c
+  1317  000CBC  6C05               	negf	___aldiv@divisor^0,c
+  1318  000CBE  0E00               	movlw	0
+  1319  000CC0  2206               	addwfc	(___aldiv@divisor+1)^0,f,c
+  1320  000CC2  2207               	addwfc	(___aldiv@divisor+2)^0,f,c
+  1321  000CC4  2208               	addwfc	(___aldiv@divisor+3)^0,f,c
+  1322  000CC6  0E01               	movlw	1
+  1323  000CC8  6E0A               	movwf	___aldiv@sign^0,c
+  1324  000CCA                     l1042:
+  1325  000CCA  BE04               	btfsc	(___aldiv@dividend+3)^0,7,c
+  1326  000CCC  EF6C  F006         	goto	u310
+  1327  000CD0  EF6A  F006         	goto	u311
+  1328  000CD4                     u311:
+  1329  000CD4  EF76  F006         	goto	l1048
+  1330  000CD8                     u310:
+  1331  000CD8  1E04               	comf	(___aldiv@dividend+3)^0,f,c
+  1332  000CDA  1E03               	comf	(___aldiv@dividend+2)^0,f,c
+  1333  000CDC  1E02               	comf	(___aldiv@dividend+1)^0,f,c
+  1334  000CDE  6C01               	negf	___aldiv@dividend^0,c
+  1335  000CE0  0E00               	movlw	0
+  1336  000CE2  2202               	addwfc	(___aldiv@dividend+1)^0,f,c
+  1337  000CE4  2203               	addwfc	(___aldiv@dividend+2)^0,f,c
+  1338  000CE6  2204               	addwfc	(___aldiv@dividend+3)^0,f,c
+  1339  000CE8  0E01               	movlw	1
+  1340  000CEA  1A0A               	xorwf	___aldiv@sign^0,f,c
+  1341  000CEC                     l1048:
+  1342  000CEC  0E00               	movlw	0
+  1343  000CEE  6E0B               	movwf	___aldiv@quotient^0,c
+  1344  000CF0  0E00               	movlw	0
+  1345  000CF2  6E0C               	movwf	(___aldiv@quotient+1)^0,c
+  1346  000CF4  0E00               	movlw	0
+  1347  000CF6  6E0D               	movwf	(___aldiv@quotient+2)^0,c
+  1348  000CF8  0E00               	movlw	0
+  1349  000CFA  6E0E               	movwf	(___aldiv@quotient+3)^0,c
+  1350  000CFC  5005               	movf	___aldiv@divisor^0,w,c
+  1351  000CFE  1006               	iorwf	(___aldiv@divisor+1)^0,w,c
+  1352  000D00  1007               	iorwf	(___aldiv@divisor+2)^0,w,c
+  1353  000D02  1008               	iorwf	(___aldiv@divisor+3)^0,w,c
+  1354  000D04  B4D8               	btfsc	status,2,c
+  1355  000D06  EF87  F006         	goto	u321
+  1356  000D0A  EF89  F006         	goto	u320
+  1357  000D0E                     u321:
+  1358  000D0E  EFBF  F006         	goto	l1070
+  1359  000D12                     u320:
+  1360  000D12  0E01               	movlw	1
+  1361  000D14  6E09               	movwf	___aldiv@counter^0,c
+  1362  000D16  EF93  F006         	goto	l1056
+  1363  000D1A                     l1054:
+  1364  000D1A  90D8               	bcf	status,0,c
+  1365  000D1C  3605               	rlcf	___aldiv@divisor^0,f,c
+  1366  000D1E  3606               	rlcf	(___aldiv@divisor+1)^0,f,c
+  1367  000D20  3607               	rlcf	(___aldiv@divisor+2)^0,f,c
+  1368  000D22  3608               	rlcf	(___aldiv@divisor+3)^0,f,c
+  1369  000D24  2A09               	incf	___aldiv@counter^0,f,c
+  1370  000D26                     l1056:
+  1371  000D26  AE08               	btfss	(___aldiv@divisor+3)^0,7,c
+  1372  000D28  EF98  F006         	goto	u331
+  1373  000D2C  EF9A  F006         	goto	u330
+  1374  000D30                     u331:
+  1375  000D30  EF8D  F006         	goto	l1054
+  1376  000D34                     u330:
+  1377  000D34                     l1058:
+  1378  000D34  90D8               	bcf	status,0,c
+  1379  000D36  360B               	rlcf	___aldiv@quotient^0,f,c
+  1380  000D38  360C               	rlcf	(___aldiv@quotient+1)^0,f,c
+  1381  000D3A  360D               	rlcf	(___aldiv@quotient+2)^0,f,c
+  1382  000D3C  360E               	rlcf	(___aldiv@quotient+3)^0,f,c
+  1383  000D3E  5005               	movf	___aldiv@divisor^0,w,c
+  1384  000D40  5C01               	subwf	___aldiv@dividend^0,w,c
+  1385  000D42  5006               	movf	(___aldiv@divisor+1)^0,w,c
+  1386  000D44  5802               	subwfb	(___aldiv@dividend+1)^0,w,c
+  1387  000D46  5007               	movf	(___aldiv@divisor+2)^0,w,c
+  1388  000D48  5803               	subwfb	(___aldiv@dividend+2)^0,w,c
+  1389  000D4A  5008               	movf	(___aldiv@divisor+3)^0,w,c
+  1390  000D4C  5804               	subwfb	(___aldiv@dividend+3)^0,w,c
+  1391  000D4E  A0D8               	btfss	status,0,c
+  1392  000D50  EFAC  F006         	goto	u341
+  1393  000D54  EFAE  F006         	goto	u340
+  1394  000D58                     u341:
+  1395  000D58  EFB7  F006         	goto	l1066
+  1396  000D5C                     u340:
+  1397  000D5C  5005               	movf	___aldiv@divisor^0,w,c
+  1398  000D5E  5E01               	subwf	___aldiv@dividend^0,f,c
+  1399  000D60  5006               	movf	(___aldiv@divisor+1)^0,w,c
+  1400  000D62  5A02               	subwfb	(___aldiv@dividend+1)^0,f,c
+  1401  000D64  5007               	movf	(___aldiv@divisor+2)^0,w,c
+  1402  000D66  5A03               	subwfb	(___aldiv@dividend+2)^0,f,c
+  1403  000D68  5008               	movf	(___aldiv@divisor+3)^0,w,c
+  1404  000D6A  5A04               	subwfb	(___aldiv@dividend+3)^0,f,c
+  1405  000D6C  800B               	bsf	___aldiv@quotient^0,0,c
+  1406  000D6E                     l1066:
+  1407  000D6E  90D8               	bcf	status,0,c
+  1408  000D70  3208               	rrcf	(___aldiv@divisor+3)^0,f,c
+  1409  000D72  3207               	rrcf	(___aldiv@divisor+2)^0,f,c
+  1410  000D74  3206               	rrcf	(___aldiv@divisor+1)^0,f,c
+  1411  000D76  3205               	rrcf	___aldiv@divisor^0,f,c
+  1412  000D78  2E09               	decfsz	___aldiv@counter^0,f,c
+  1413  000D7A  EF9A  F006         	goto	l1058
+  1414  000D7E                     l1070:
+  1415  000D7E  500A               	movf	___aldiv@sign^0,w,c
+  1416  000D80  B4D8               	btfsc	status,2,c
+  1417  000D82  EFC5  F006         	goto	u351
+  1418  000D86  EFC7  F006         	goto	u350
+  1419  000D8A                     u351:
+  1420  000D8A  EFCF  F006         	goto	l1074
+  1421  000D8E                     u350:
+  1422  000D8E  1E0E               	comf	(___aldiv@quotient+3)^0,f,c
+  1423  000D90  1E0D               	comf	(___aldiv@quotient+2)^0,f,c
+  1424  000D92  1E0C               	comf	(___aldiv@quotient+1)^0,f,c
+  1425  000D94  6C0B               	negf	___aldiv@quotient^0,c
+  1426  000D96  0E00               	movlw	0
+  1427  000D98  220C               	addwfc	(___aldiv@quotient+1)^0,f,c
+  1428  000D9A  220D               	addwfc	(___aldiv@quotient+2)^0,f,c
+  1429  000D9C  220E               	addwfc	(___aldiv@quotient+3)^0,f,c
+  1430  000D9E                     l1074:
+  1431  000D9E  C00B  F001         	movff	___aldiv@quotient,?___aldiv
+  1432  000DA2  C00C  F002         	movff	___aldiv@quotient+1,?___aldiv+1
+  1433  000DA6  C00D  F003         	movff	___aldiv@quotient+2,?___aldiv+2
+  1434  000DAA  C00E  F004         	movff	___aldiv@quotient+3,?___aldiv+3
+  1435  000DAE  0012               	return		;funcret
+  1436  000DB0                     __end_of___aldiv:
+  1437                           	callstack 0
+  1438                           
+  1439 ;; *************** function _envia_texto_serial *****************
+  1440 ;; Defined at:
+  1441 ;;		line 47 in file "q5.c"
+  1442 ;; Parameters:    Size  Location     Type
+  1443 ;;  frase           2    4[COMRAM] PTR const unsigned char 
+  1444 ;;		 -> STR_12(31), STR_11(21), STR_10(23), STR_9(49), 
+  1445 ;;		 -> STR_8(39), STR_7(40), STR_6(31), STR_5(20), 
+  1446 ;;		 -> STR_4(22), STR_3(48), STR_2(38), STR_1(39), 
+  1447 ;; Auto vars:     Size  Location     Type
+  1448 ;;  indice          1    9[COMRAM] unsigned char 
+  1449 ;;  tamanho         1    8[COMRAM] unsigned char 
+  1450 ;; Return value:  Size  Location     Type
+  1451 ;;                  1    wreg      void 
+  1452 ;; Registers used:
+  1453 ;;		wreg, status,2, status,0, tblptrl, tblptrh, tblptru, cstack
+  1454 ;; Tracked objects:
+  1455 ;;		On entry : 0/0
+  1456 ;;		On exit  : 0/0
+  1457 ;;		Unchanged: 0/0
+  1458 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  1459 ;;      Params:         2       0       0       0       0       0       0       0       0
+  1460 ;;      Locals:         2       0       0       0       0       0       0       0       0
+  1461 ;;      Temps:          2       0       0       0       0       0       0       0       0
+  1462 ;;      Totals:         6       0       0       0       0       0       0       0       0
+  1463 ;;Total ram usage:        6 bytes
+  1464 ;; Hardware stack levels used:    1
+  1465 ;; Hardware stack levels required when called:    2
+  1466 ;; This function calls:
+  1467 ;;		_envia_serial
+  1468 ;;		_strlen
+  1469 ;; This function is called by:
+  1470 ;;		_main
+  1471 ;; This function uses a non-reentrant model
+  1472 ;;
+  1473                           
+  1474                           	psect	text3
+  1475  000EAC                     __ptext3:
+  1476                           	callstack 0
+  1477  000EAC                     _envia_texto_serial:
+  1478                           	callstack 28
+  1479  000EAC                     
+  1480                           ;q5.c: 47: {;q5.c: 48:     OSCCON = 0b01100000;;q5.c: 49:     TRISC = 0b11000000;
+  1481  000EAC  0E00               	movlw	0
+  1482  000EAE  6E0A               	movwf	envia_texto_serial@indice^0,c
+  1483  000EB0                     
+  1484                           ;q5.c: 50:     inicializa_RS232(9600,1);
+  1485  000EB0  C005  F001         	movff	envia_texto_serial@frase,strlen@s
+  1486  000EB4  C006  F002         	movff	envia_texto_serial@frase+1,strlen@s+1
+  1487  000EB8  EC7B  F007         	call	_strlen	;wreg free
+  1488  000EBC  5001               	movf	?_strlen^0,w,c
+  1489  000EBE  6E09               	movwf	envia_texto_serial@tamanho^0,c
+  1490                           
+  1491                           ;q5.c: 52:     PEIE = 1;
+  1492  000EC0  EF71  F007         	goto	l1108
+  1493  000EC4                     l1104:
+  1494                           
+  1495                           ;q5.c: 53:     TRISD = 0;
+  1496  000EC4  500A               	movf	envia_texto_serial@indice^0,w,c
+  1497  000EC6  2405               	addwf	envia_texto_serial@frase^0,w,c
+  1498  000EC8  6E07               	movwf	??_envia_texto_serial^0,c
+  1499  000ECA  0E00               	movlw	0
+  1500  000ECC  2006               	addwfc	(envia_texto_serial@frase+1)^0,w,c
+  1501  000ECE  6E08               	movwf	(??_envia_texto_serial+1)^0,c
+  1502  000ED0  C007  FFF6         	movff	??_envia_texto_serial,tblptrl
+  1503  000ED4  C008  FFF7         	movff	??_envia_texto_serial+1,tblptrh
+  1504  000ED8                     	if	0	;tblptru may be non-zero
+  1505  000ED8                     	endif
+  1506  000ED8                     	if	0	;tblptru may be non-zero
+  1507  000ED8                     	endif
+  1508  000ED8  0008               	tblrd		*
+  1509  000EDA  50F5               	movf	tablat,w,c
+  1510  000EDC  ECA7  F007         	call	_envia_serial
+  1511  000EE0                     
+  1512                           ;q5.c: 54: 
+  1513  000EE0  2A0A               	incf	envia_texto_serial@indice^0,f,c
+  1514  000EE2                     l1108:
+  1515                           
+  1516                           ;q5.c: 52:     PEIE = 1;
+  1517  000EE2  5009               	movf	envia_texto_serial@tamanho^0,w,c
+  1518  000EE4  5C0A               	subwf	envia_texto_serial@indice^0,w,c
+  1519  000EE6  A0D8               	btfss	status,0,c
+  1520  000EE8  EF78  F007         	goto	u371
+  1521  000EEC  EF7A  F007         	goto	u370
+  1522  000EF0                     u371:
+  1523  000EF0  EF62  F007         	goto	l1104
+  1524  000EF4                     u370:
+  1525  000EF4  0012               	return		;funcret
+  1526  000EF6                     __end_of_envia_texto_serial:
+  1527                           	callstack 0
+  1528                           
+  1529 ;; *************** function _strlen *****************
+  1530 ;; Defined at:
+  1531 ;;		line 5 in file "C:\Program Files\Microchip\xc8\v2.30\pic\sources\c99\common\strlen.c"
+  1532 ;; Parameters:    Size  Location     Type
+  1533 ;;  s               2    0[COMRAM] PTR const unsigned char 
+  1534 ;;		 -> STR_12(31), STR_11(21), STR_10(23), STR_9(49), 
+  1535 ;;		 -> STR_8(39), STR_7(40), STR_6(31), STR_5(20), 
+  1536 ;;		 -> STR_4(22), STR_3(48), STR_2(38), STR_1(39), 
+  1537 ;; Auto vars:     Size  Location     Type
+  1538 ;;  a               2    2[COMRAM] PTR const unsigned char 
+  1539 ;;		 -> STR_12(31), STR_11(21), STR_10(23), STR_9(49), 
+  1540 ;;		 -> STR_8(39), STR_7(40), STR_6(31), STR_5(20), 
+  1541 ;;		 -> STR_4(22), STR_3(48), STR_2(38), STR_1(39), 
+  1542 ;; Return value:  Size  Location     Type
+  1543 ;;                  2    0[COMRAM] unsigned int 
+  1544 ;; Registers used:
+  1545 ;;		wreg, status,2, status,0, tblptrl, tblptrh, tblptru
+  1546 ;; Tracked objects:
+  1547 ;;		On entry : 0/0
+  1548 ;;		On exit  : 0/0
+  1549 ;;		Unchanged: 0/0
+  1550 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  1551 ;;      Params:         2       0       0       0       0       0       0       0       0
+  1552 ;;      Locals:         2       0       0       0       0       0       0       0       0
+  1553 ;;      Temps:          0       0       0       0       0       0       0       0       0
+  1554 ;;      Totals:         4       0       0       0       0       0       0       0       0
+  1555 ;;Total ram usage:        4 bytes
+  1556 ;; Hardware stack levels used:    1
+  1557 ;; Hardware stack levels required when called:    1
+  1558 ;; This function calls:
+  1559 ;;		Nothing
+  1560 ;; This function is called by:
+  1561 ;;		_envia_texto_serial
+  1562 ;; This function uses a non-reentrant model
+  1563 ;;
+  1564                           
+  1565                           	psect	text4
+  1566  000EF6                     __ptext4:
+  1567                           	callstack 0
+  1568  000EF6                     _strlen:
+  1569                           	callstack 28
+  1570  000EF6  C001  F003         	movff	strlen@s,strlen@a
+  1571  000EFA  C002  F004         	movff	strlen@s+1,strlen@a+1
+  1572  000EFE  EF83  F007         	goto	l1028
+  1573  000F02                     l1026:
+  1574  000F02  4A01               	infsnz	strlen@s^0,f,c
+  1575  000F04  2A02               	incf	(strlen@s+1)^0,f,c
+  1576  000F06                     l1028:
+  1577  000F06  C001  FFF6         	movff	strlen@s,tblptrl
+  1578  000F0A  C002  FFF7         	movff	strlen@s+1,tblptrh
+  1579  000F0E                     	if	0	;tblptru may be non-zero
+  1580  000F0E                     	endif
+  1581  000F0E                     	if	0	;tblptru may be non-zero
+  1582  000F0E                     	endif
+  1583  000F0E  0008               	tblrd		*
+  1584  000F10  50F5               	movf	tablat,w,c
+  1585  000F12  0900               	iorlw	0
+  1586  000F14  A4D8               	btfss	status,2,c
+  1587  000F16  EF8F  F007         	goto	u291
+  1588  000F1A  EF91  F007         	goto	u290
+  1589  000F1E                     u291:
+  1590  000F1E  EF81  F007         	goto	l1026
+  1591  000F22                     u290:
+  1592  000F22  5003               	movf	strlen@a^0,w,c
+  1593  000F24  5C01               	subwf	strlen@s^0,w,c
+  1594  000F26  6E01               	movwf	?_strlen^0,c
+  1595  000F28  5004               	movf	(strlen@a+1)^0,w,c
+  1596  000F2A  5802               	subwfb	(strlen@s+1)^0,w,c
+  1597  000F2C  6E02               	movwf	(?_strlen+1)^0,c
+  1598  000F2E  0012               	return		;funcret
+  1599  000F30                     __end_of_strlen:
+  1600                           	callstack 0
+  1601                           
+  1602 ;; *************** function _envia_serial *****************
+  1603 ;; Defined at:
+  1604 ;;		line 41 in file "q5.c"
+  1605 ;; Parameters:    Size  Location     Type
+  1606 ;;  valor           1    wreg     unsigned char 
+  1607 ;; Auto vars:     Size  Location     Type
+  1608 ;;  valor           1    0[COMRAM] unsigned char 
+  1609 ;; Return value:  Size  Location     Type
+  1610 ;;                  1    wreg      void 
+  1611 ;; Registers used:
+  1612 ;;		wreg
+  1613 ;; Tracked objects:
+  1614 ;;		On entry : 0/0
+  1615 ;;		On exit  : 0/0
+  1616 ;;		Unchanged: 0/0
+  1617 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  1618 ;;      Params:         0       0       0       0       0       0       0       0       0
+  1619 ;;      Locals:         1       0       0       0       0       0       0       0       0
+  1620 ;;      Temps:          0       0       0       0       0       0       0       0       0
+  1621 ;;      Totals:         1       0       0       0       0       0       0       0       0
+  1622 ;;Total ram usage:        1 bytes
+  1623 ;; Hardware stack levels used:    1
+  1624 ;; Hardware stack levels required when called:    1
+  1625 ;; This function calls:
+  1626 ;;		Nothing
+  1627 ;; This function is called by:
+  1628 ;;		_envia_texto_serial
+  1629 ;; This function uses a non-reentrant model
+  1630 ;;
+  1631                           
+  1632                           	psect	text5
+  1633  000F4E                     __ptext5:
+  1634                           	callstack 0
+  1635  000F4E                     _envia_serial:
+  1636                           	callstack 28
+  1637                           
+  1638                           ;incstack = 0
+  1639                           ;envia_serial@valor stored from wreg
+  1640  000F4E  6E01               	movwf	envia_serial@valor^0,c
+  1641  000F50                     
+  1642                           ;q5.c: 41:         envia_serial (frase[indice]);;q5.c: 42:         indice++;;q5.c: 43:  
+      +                             }
+  1643  000F50  989E               	bcf	3998,4,c	;volatile
+  1644  000F52                     
+  1645                           ;q5.c: 44: }
+  1646  000F52  C001  FFAD         	movff	envia_serial@valor,4013	;volatile
+  1647  000F56                     l55:
+  1648  000F56  A89E               	btfss	3998,4,c	;volatile
+  1649  000F58  EFB0  F007         	goto	u11
+  1650  000F5C  EFB2  F007         	goto	u10
+  1651  000F60                     u11:
+  1652  000F60  EFAB  F007         	goto	l55
+  1653  000F64                     u10:
+  1654  000F64  0012               	return		;funcret
+  1655  000F66                     __end_of_envia_serial:
+  1656                           	callstack 0
+  1657                           
+  1658 ;; *************** function _RS232 *****************
+  1659 ;; Defined at:
+  1660 ;;		line 15 in file "q5.c"
+  1661 ;; Parameters:    Size  Location     Type
+  1662 ;;		None
+  1663 ;; Auto vars:     Size  Location     Type
+  1664 ;;		None
+  1665 ;; Return value:  Size  Location     Type
+  1666 ;;                  1    wreg      void 
+  1667 ;; Registers used:
+  1668 ;;		wreg, status,2
+  1669 ;; Tracked objects:
+  1670 ;;		On entry : 0/0
+  1671 ;;		On exit  : 0/0
+  1672 ;;		Unchanged: 0/0
+  1673 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  1674 ;;      Params:         0       0       0       0       0       0       0       0       0
+  1675 ;;      Locals:         0       0       0       0       0       0       0       0       0
+  1676 ;;      Temps:          0       0       0       0       0       0       0       0       0
+  1677 ;;      Totals:         0       0       0       0       0       0       0       0       0
+  1678 ;;Total ram usage:        0 bytes
+  1679 ;; Hardware stack levels used:    1
+  1680 ;; This function calls:
+  1681 ;;		Nothing
+  1682 ;; This function is called by:
+  1683 ;;		Interrupt level 2
+  1684 ;; This function uses a non-reentrant model
+  1685 ;;
+  1686                           
+  1687                           	psect	intcode
+  1688  000008                     __pintcode:
+  1689                           	callstack 0
+  1690  000008                     _RS232:
+  1691                           	callstack 28
+  1692                           
+  1693                           ;incstack = 0
+  1694  000008  8224               	bsf	int$flags,1,c	;set compiler interrupt flag (level 2)
+  1695  00000A  EDB3  F007         	call	int_func,f	;refresh shadow registers
+  1696                           
+  1697                           	psect	intcode_body
+  1698  000F66                     __pintcode_body:
+  1699                           	callstack 28
+  1700  000F66                     int_func:
+  1701                           	callstack 28
+  1702  000F66  0006               	pop		; remove dummy address from shadow register refresh
+  1703  000F68                     
+  1704                           ;q5.c: 17:     }
+  1705  000F68  CFAE F023          	movff	4014,_caracter	;volatile
+  1706  000F6C                     
+  1707                           ;q5.c: 18:     else {
+  1708  000F6C  0E00               	movlw	0
+  1709  000F6E  6E22               	movwf	(_flag_interrupcao+1)^0,c
+  1710  000F70  0E01               	movlw	1
+  1711  000F72  6E21               	movwf	_flag_interrupcao^0,c
+  1712  000F74                     
+  1713                           ;q5.c: 19:         TXSTA = 0X20;
+  1714  000F74  9A9E               	bcf	3998,5,c	;volatile
+  1715  000F76  9224               	bcf	int$flags,1,c	;clear compiler interrupt flag (level 2)
+  1716  000F78  0011               	retfie		f
+  1717  000F7A                     __end_of_RS232:
+  1718                           	callstack 0
+  1719                           
+  1720                           	psect	rparam
+  1721  0000                     
+  1722                           	psect	temp
+  1723  000024                     btemp:
+  1724                           	callstack 0
+  1725  000024                     	ds	1
+  1726  0000                     int$flags	set	btemp
+  1727  0000                     wtemp8	set	btemp+1
+  1728  0000                     ttemp5	set	btemp+1
+  1729  0000                     ttemp6	set	btemp+4
+  1730  0000                     ttemp7	set	btemp+8
+  1731                           
+  1732                           	psect	idloc
+  1733                           
+  1734                           ;Config register IDLOC0 @ 0x200000
+  1735                           ;	unspecified, using default values
+  1736  200000                     	org	2097152
+  1737  200000  FF                 	db	255
+  1738                           
+  1739                           ;Config register IDLOC1 @ 0x200001
+  1740                           ;	unspecified, using default values
+  1741  200001                     	org	2097153
+  1742  200001  FF                 	db	255
+  1743                           
+  1744                           ;Config register IDLOC2 @ 0x200002
+  1745                           ;	unspecified, using default values
+  1746  200002                     	org	2097154
+  1747  200002  FF                 	db	255
+  1748                           
+  1749                           ;Config register IDLOC3 @ 0x200003
+  1750                           ;	unspecified, using default values
+  1751  200003                     	org	2097155
+  1752  200003  FF                 	db	255
+  1753                           
+  1754                           ;Config register IDLOC4 @ 0x200004
+  1755                           ;	unspecified, using default values
+  1756  200004                     	org	2097156
+  1757  200004  FF                 	db	255
+  1758                           
+  1759                           ;Config register IDLOC5 @ 0x200005
+  1760                           ;	unspecified, using default values
+  1761  200005                     	org	2097157
+  1762  200005  FF                 	db	255
+  1763                           
+  1764                           ;Config register IDLOC6 @ 0x200006
+  1765                           ;	unspecified, using default values
+  1766  200006                     	org	2097158
+  1767  200006  FF                 	db	255
+  1768                           
+  1769                           ;Config register IDLOC7 @ 0x200007
+  1770                           ;	unspecified, using default values
+  1771  200007                     	org	2097159
+  1772  200007  FF                 	db	255
+  1773                           
+  1774                           	psect	config
+  1775                           
+  1776                           ;Config register CONFIG1L @ 0x300000
+  1777                           ;	unspecified, using default values
+  1778                           ;	PLL Prescaler Selection bits
+  1779                           ;	PLLDIV = 0x0, unprogrammed default
+  1780                           ;	System Clock Postscaler Selection bits
+  1781                           ;	CPUDIV = 0x0, unprogrammed default
+  1782                           ;	USB Clock Selection bit (used in Full-Speed USB mode only; UCFG:FSEN = 1)
+  1783                           ;	USBDIV = 0x0, unprogrammed default
+  1784  300000                     	org	3145728
+  1785  300000  00                 	db	0
+  1786                           
+  1787                           ;Config register CONFIG1H @ 0x300001
+  1788                           ;	Oscillator Selection bits
+  1789                           ;	FOSC = INTOSC_EC, Internal oscillator, CLKO function on RA6, EC used by USB (INTCKO)
+  1790                           ;	Fail-Safe Clock Monitor Enable bit
+  1791                           ;	FCMEN = 0x0, unprogrammed default
+  1792                           ;	Internal/External Oscillator Switchover bit
+  1793                           ;	IESO = 0x0, unprogrammed default
+  1794  300001                     	org	3145729
+  1795  300001  09                 	db	9
+  1796                           
+  1797                           ;Config register CONFIG2L @ 0x300002
+  1798                           ;	unspecified, using default values
+  1799                           ;	Power-up Timer Enable bit
+  1800                           ;	PWRT = 0x1, unprogrammed default
+  1801                           ;	Brown-out Reset Enable bits
+  1802                           ;	BOR = 0x3, unprogrammed default
+  1803                           ;	Brown-out Reset Voltage bits
+  1804                           ;	BORV = 0x3, unprogrammed default
+  1805                           ;	USB Voltage Regulator Enable bit
+  1806                           ;	VREGEN = 0x0, unprogrammed default
+  1807  300002                     	org	3145730
+  1808  300002  1F                 	db	31
+  1809                           
+  1810                           ;Config register CONFIG2H @ 0x300003
+  1811                           ;	Watchdog Timer Enable bit
+  1812                           ;	WDT = OFF, WDT disabled (control is placed on the SWDTEN bit)
+  1813                           ;	Watchdog Timer Postscale Select bits
+  1814                           ;	WDTPS = 0xF, unprogrammed default
+  1815  300003                     	org	3145731
+  1816  300003  1E                 	db	30
+  1817                           
+  1818                           ; Padding undefined space
+  1819  300004                     	org	3145732
+  1820  300004  FF                 	db	255
+  1821                           
+  1822                           ;Config register CONFIG3H @ 0x300005
+  1823                           ;	CCP2 MUX bit
+  1824                           ;	CCP2MX = 0x1, unprogrammed default
+  1825                           ;	PORTB A/D Enable bit
+  1826                           ;	PBADEN = 0x1, unprogrammed default
+  1827                           ;	Low-Power Timer 1 Oscillator Enable bit
+  1828                           ;	LPT1OSC = 0x0, unprogrammed default
+  1829                           ;	MCLR Pin Enable bit
+  1830                           ;	MCLRE = OFF, RE3 input pin enabled; MCLR pin disabled
+  1831  300005                     	org	3145733
+  1832  300005  03                 	db	3
+  1833                           
+  1834                           ;Config register CONFIG4L @ 0x300006
+  1835                           ;	unspecified, using default values
+  1836                           ;	Stack Full/Underflow Reset Enable bit
+  1837                           ;	STVREN = 0x1, unprogrammed default
+  1838                           ;	Single-Supply ICSP Enable bit
+  1839                           ;	LVP = 0x1, unprogrammed default
+  1840                           ;	Dedicated In-Circuit Debug/Programming Port (ICPORT) Enable bit
+  1841                           ;	ICPRT = 0x0, unprogrammed default
+  1842                           ;	Extended Instruction Set Enable bit
+  1843                           ;	XINST = 0x0, unprogrammed default
+  1844                           ;	Background Debugger Enable bit
+  1845                           ;	DEBUG = 0x1, unprogrammed default
+  1846  300006                     	org	3145734
+  1847  300006  85                 	db	133
+  1848                           
+  1849                           ; Padding undefined space
+  1850  300007                     	org	3145735
+  1851  300007  FF                 	db	255
+  1852                           
+  1853                           ;Config register CONFIG5L @ 0x300008
+  1854                           ;	unspecified, using default values
+  1855                           ;	Code Protection bit
+  1856                           ;	CP0 = 0x1, unprogrammed default
+  1857                           ;	Code Protection bit
+  1858                           ;	CP1 = 0x1, unprogrammed default
+  1859                           ;	Code Protection bit
+  1860                           ;	CP2 = 0x1, unprogrammed default
+  1861                           ;	Code Protection bit
+  1862                           ;	CP3 = 0x1, unprogrammed default
+  1863  300008                     	org	3145736
+  1864  300008  0F                 	db	15
+  1865                           
+  1866                           ;Config register CONFIG5H @ 0x300009
+  1867                           ;	unspecified, using default values
+  1868                           ;	Boot Block Code Protection bit
+  1869                           ;	CPB = 0x1, unprogrammed default
+  1870                           ;	Data EEPROM Code Protection bit
+  1871                           ;	CPD = 0x1, unprogrammed default
+  1872  300009                     	org	3145737
+  1873  300009  C0                 	db	192
+  1874                           
+  1875                           ;Config register CONFIG6L @ 0x30000A
+  1876                           ;	unspecified, using default values
+  1877                           ;	Write Protection bit
+  1878                           ;	WRT0 = 0x1, unprogrammed default
+  1879                           ;	Write Protection bit
+  1880                           ;	WRT1 = 0x1, unprogrammed default
+  1881                           ;	Write Protection bit
+  1882                           ;	WRT2 = 0x1, unprogrammed default
+  1883                           ;	Write Protection bit
+  1884                           ;	WRT3 = 0x1, unprogrammed default
+  1885  30000A                     	org	3145738
+  1886  30000A  0F                 	db	15
+  1887                           
+  1888                           ;Config register CONFIG6H @ 0x30000B
+  1889                           ;	unspecified, using default values
+  1890                           ;	Configuration Register Write Protection bit
+  1891                           ;	WRTC = 0x1, unprogrammed default
+  1892                           ;	Boot Block Write Protection bit
+  1893                           ;	WRTB = 0x1, unprogrammed default
+  1894                           ;	Data EEPROM Write Protection bit
+  1895                           ;	WRTD = 0x1, unprogrammed default
+  1896  30000B                     	org	3145739
+  1897  30000B  E0                 	db	224
+  1898                           
+  1899                           ;Config register CONFIG7L @ 0x30000C
+  1900                           ;	unspecified, using default values
+  1901                           ;	Table Read Protection bit
+  1902                           ;	EBTR0 = 0x1, unprogrammed default
+  1903                           ;	Table Read Protection bit
+  1904                           ;	EBTR1 = 0x1, unprogrammed default
+  1905                           ;	Table Read Protection bit
+  1906                           ;	EBTR2 = 0x1, unprogrammed default
+  1907                           ;	Table Read Protection bit
+  1908                           ;	EBTR3 = 0x1, unprogrammed default
+  1909  30000C                     	org	3145740
+  1910  30000C  0F                 	db	15
+  1911                           
+  1912                           ;Config register CONFIG7H @ 0x30000D
+  1913                           ;	unspecified, using default values
+  1914                           ;	Boot Block Table Read Protection bit
+  1915                           ;	EBTRB = 0x1, unprogrammed default
+  1916  30000D                     	org	3145741
+  1917  30000D  40                 	db	64
+  1918                           tosu	equ	0xFFF
+  1919                           tosh	equ	0xFFE
+  1920                           tosl	equ	0xFFD
+  1921                           stkptr	equ	0xFFC
+  1922                           pclatu	equ	0xFFB
+  1923                           pclath	equ	0xFFA
+  1924                           pcl	equ	0xFF9
+  1925                           tblptru	equ	0xFF8
+  1926                           tblptrh	equ	0xFF7
+  1927                           tblptrl	equ	0xFF6
+  1928                           tablat	equ	0xFF5
+  1929                           prodh	equ	0xFF4
+  1930                           prodl	equ	0xFF3
+  1931                           indf0	equ	0xFEF
+  1932                           postinc0	equ	0xFEE
+  1933                           postdec0	equ	0xFED
+  1934                           preinc0	equ	0xFEC
+  1935                           plusw0	equ	0xFEB
+  1936                           fsr0h	equ	0xFEA
+  1937                           fsr0l	equ	0xFE9
+  1938                           wreg	equ	0xFE8
+  1939                           indf1	equ	0xFE7
+  1940                           postinc1	equ	0xFE6
+  1941                           postdec1	equ	0xFE5
+  1942                           preinc1	equ	0xFE4
+  1943                           plusw1	equ	0xFE3
+  1944                           fsr1h	equ	0xFE2
+  1945                           fsr1l	equ	0xFE1
+  1946                           bsr	equ	0xFE0
+  1947                           indf2	equ	0xFDF
+  1948                           postinc2	equ	0xFDE
+  1949                           postdec2	equ	0xFDD
+  1950                           preinc2	equ	0xFDC
+  1951                           plusw2	equ	0xFDB
+  1952                           fsr2h	equ	0xFDA
+  1953                           fsr2l	equ	0xFD9
+  1954                           status	equ	0xFD8
+
+Data Sizes:
+    Strings     234
+    Constant    0
+    Data        0
+    BSS         7
+    Persistent  0
+    Stack       0
+
+Auto Spaces:
+    Space          Size  Autos    Used
+    COMRAM           94     28      35
+    BANK0           160      0       0
+    BANK1           256      0       0
+    BANK2           256      0       0
+    BANK3           256      0       0
+    BANK4           256      0       0
+    BANK5           256      0       0
+    BANK6           256      0       0
+    BANK7           256      0       0
+
+Pointer List with Targets:
+
+    strlen@s	PTR const unsigned char  size(2) Largest target is 49
+		 -> STR_12(CODE[31]), STR_11(CODE[21]), STR_10(CODE[23]), STR_9(CODE[49]), 
+		 -> STR_8(CODE[39]), STR_7(CODE[40]), STR_6(CODE[31]), STR_5(CODE[20]), 
+		 -> STR_4(CODE[22]), STR_3(CODE[48]), STR_2(CODE[38]), STR_1(CODE[39]), 
+
+    strlen@a	PTR const unsigned char  size(2) Largest target is 49
+		 -> STR_12(CODE[31]), STR_11(CODE[21]), STR_10(CODE[23]), STR_9(CODE[49]), 
+		 -> STR_8(CODE[39]), STR_7(CODE[40]), STR_6(CODE[31]), STR_5(CODE[20]), 
+		 -> STR_4(CODE[22]), STR_3(CODE[48]), STR_2(CODE[38]), STR_1(CODE[39]), 
+
+    envia_texto_serial@frase	PTR const unsigned char  size(2) Largest target is 49
+		 -> STR_12(CODE[31]), STR_11(CODE[21]), STR_10(CODE[23]), STR_9(CODE[49]), 
+		 -> STR_8(CODE[39]), STR_7(CODE[40]), STR_6(CODE[31]), STR_5(CODE[20]), 
+		 -> STR_4(CODE[22]), STR_3(CODE[48]), STR_2(CODE[38]), STR_1(CODE[39]), 
+
+
+Critical Paths under _main in COMRAM
+
+    _main->_inicializa_RS232
+    _inicializa_RS232->___aldiv
+    _envia_texto_serial->_strlen
+
+Critical Paths under _RS232 in COMRAM
+
+    None.
+
+Critical Paths under _main in BANK0
+
+    None.
+
+Critical Paths under _RS232 in BANK0
+
+    None.
+
+Critical Paths under _main in BANK1
+
+    None.
+
+Critical Paths under _RS232 in BANK1
+
+    None.
+
+Critical Paths under _main in BANK2
+
+    None.
+
+Critical Paths under _RS232 in BANK2
+
+    None.
+
+Critical Paths under _main in BANK3
+
+    None.
+
+Critical Paths under _RS232 in BANK3
+
+    None.
+
+Critical Paths under _main in BANK4
+
+    None.
+
+Critical Paths under _RS232 in BANK4
+
+    None.
+
+Critical Paths under _main in BANK5
+
+    None.
+
+Critical Paths under _RS232 in BANK5
+
+    None.
+
+Critical Paths under _main in BANK6
+
+    None.
+
+Critical Paths under _RS232 in BANK6
+
+    None.
+
+Critical Paths under _main in BANK7
+
+    None.
+
+Critical Paths under _RS232 in BANK7
+
+    None.
+
+Call Graph Tables:
+
+ ---------------------------------------------------------------------------------
+ (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+ ---------------------------------------------------------------------------------
+ (0) _main                                                 2     2      0    2402
+                                             26 COMRAM     2     2      0
+                 _envia_texto_serial
+                   _inicializa_RS232
+ ---------------------------------------------------------------------------------
+ (1) _inicializa_RS232                                    12     6      6    1196
+                                             14 COMRAM    12     6      6
+                            ___aldiv
+ ---------------------------------------------------------------------------------
+ (2) ___aldiv                                             14     6      8     908
+                                              0 COMRAM    14     6      8
+ ---------------------------------------------------------------------------------
+ (1) _envia_texto_serial                                   6     4      2    1206
+                                              4 COMRAM     6     4      2
+                       _envia_serial
+                             _strlen
+ ---------------------------------------------------------------------------------
+ (2) _strlen                                               4     2      2     166
+                                              0 COMRAM     4     2      2
+ ---------------------------------------------------------------------------------
+ (2) _envia_serial                                         1     1      0      15
+                                              0 COMRAM     1     1      0
+ ---------------------------------------------------------------------------------
+ Estimated maximum stack depth 2
+ ---------------------------------------------------------------------------------
+ (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+ ---------------------------------------------------------------------------------
+ (3) _RS232                                                0     0      0       0
+ ---------------------------------------------------------------------------------
+ Estimated maximum stack depth 3
+ ---------------------------------------------------------------------------------
+
+ Call Graph Graphs:
+
+ _main (ROOT)
+   _envia_texto_serial
+     _envia_serial
+     _strlen
+   _inicializa_RS232
+     ___aldiv
+
+ _RS232 (ROOT)
+
+ Address spaces:
+Name               Size   Autos  Total    Cost      Usage
+BIGRAM             7FF      0       0      21        0.0%
+EEDATA             100      0       0       0        0.0%
+BITBANK7           100      0       0      18        0.0%
+BANK7              100      0       0      19        0.0%
+BITBANK6           100      0       0      16        0.0%
+BANK6              100      0       0      17        0.0%
+BITBANK5           100      0       0      14        0.0%
+BANK5              100      0       0      15        0.0%
+BITBANK4           100      0       0      12        0.0%
+BANK4              100      0       0      13        0.0%
+BITBANK3           100      0       0      10        0.0%
+BANK3              100      0       0      11        0.0%
+BITBANK2           100      0       0       8        0.0%
+BANK2              100      0       0       9        0.0%
+BITBANK1           100      0       0       6        0.0%
+BANK1              100      0       0       7        0.0%
+BITBANK0            A0      0       0       4        0.0%
+BANK0               A0      0       0       5        0.0%
+BITCOMRAM           5E      0       0       0        0.0%
+COMRAM              5E     1C      23       1       37.2%
+BITSFR               0      0       0     200        0.0%
+SFR                  0      0       0     200        0.0%
+STACK                0      0       0       2        0.0%
+NULL                 0      0       0       0        0.0%
+ABS                  0      0      23      20        0.0%
+DATA                 0      0      23       3        0.0%
+CODE                 0      0       0       0        0.0%
+
+
+Microchip Technology PIC18 Macro Assembler V2.30 build 20200825195618 
+Symbol Table                                                                                   Wed Jan 06 11:54:47 2021
+
+                         l52 0EAA                           l55 0F56                           l64 0EF4  
+                         l58 0F64                           u10 0F64                           u11 0F60  
+          ?_inicializa_RS232 000F                          l186 0DAE                          l784 0F2E  
+                        l786 0F50                          l788 0F52                          _GIE 007F97  
+                        u300 0CB6                          u301 0CB2                          u310 0CD8  
+                        u311 0CD4                          u320 0D12                          u400 09C0  
+                        u321 0D0E                          u401 09BC                          u330 0D34  
+                        u410 09E6                          u331 0D30                          u411 09E2  
+                        u340 0D5C                          u500 0BC0                          u420 09F8  
+                        u341 0D58                          u501 0BBC                          u421 09F4  
+                        u350 0D8E                          u510 0C06                          u430 0A32  
+                        u351 0D8A                          u511 0C02                          u431 0A2E  
+                        u360 0DC6                          u520 0C1C                          u440 0A58  
+                        u361 0DC2                          u521 0C18                          u441 0A54  
+                        u290 0F22                          u370 0EF4                          u530 0C60  
+                        u450 0A6A                          u291 0F1E                          u371 0EF0  
+                        u531 0C5C                          u451 0A66                          u540 0C72  
+                        u460 0AB8                          u380 0972                          u541 0C6E  
+                        u461 0AB4                          u381 096E                          u550 0C84  
+                        u470 0ACA                          u390 0984                          u551 0C80  
+                        u471 0AC6                          u607 0A84                          u391 0980  
+                        u480 0B68                          u481 0B64                          u617 0A98  
+                        u490 0B7A                          u707 0C44                          u491 0B76  
+                        u627 0AE4                          u637 0AF8                          u647 0B0C  
+                        u567 099E                          u657 0B20                          u577 09C6  
+                        u667 0B34                          u587 0A12                          u677 0B48  
+                        u597 0A38                          u687 0B90                          u697 0BE8  
+         ??_inicializa_RS232 0015                          wreg 000FE8                         l1100 0EAC  
+                       l1030 0F22                         l1102 0EB0                         l1110 08EC  
+                       l1024 0EF6                         l1104 0EC4                         l1040 0CC6  
+                       l1200 0B2A                         l1120 0918                         l1112 08F4  
+                       l1026 0F02                         l1106 0EE0                         l1050 0CFC  
+                       l1042 0CCA                         l1034 0CA4                         l1202 0B2E  
+                       l1210 0B68                         l1130 0954                         l1122 0924  
+                       l1114 0910                         l1028 0F06                         l1108 0EE2  
+                       l1060 0D3E                         l1052 0D12                         l1044 0CD8  
+                       l1036 0CA8                         l1220 0BA2                         l1212 0B7A  
+                       l1204 0B42                         l1140 0998                         l1132 0960  
+                       l1124 0930                         l1116 0912                         l1062 0D5C  
+                       l1054 0D1A                         l1070 0D7E                         l1046 0CE8  
+                       l1038 0CB6                         l1230 0BF2                         l1222 0BAE  
+                       l1214 0B86                         l1142 09A8                         l1150 09D4  
+                       l1134 0972                         l1126 093C                         l1118 0914  
+                       l1072 0D8E                         l1064 0D6C                         l1056 0D26  
+                       l1048 0CEC                         l1080 0DB4                         l1232 0C0A  
+                       l1240 0C4E                         l1216 0B8A                         l1208 0B56  
+                       l1160 0A1C                         l1144 09AE                         l1136 0984  
+                       l1152 09E6                         l1128 0948                         l1074 0D9E  
+                       l1066 0D6E                         l1058 0D34                         l1090 0E3A  
+                       l1082 0DC6                         l1250 0C94                         l1226 0BC4  
+                       l1242 0C60                         l1218 0B9A                         l1162 0A22  
+                       l1154 09F8                         l1170 0A58                         l1146 09C0  
+                       l1138 0990                         l1068 0D78                         l1092 0E76  
+                       l1084 0DCA                         l1236 0C20                         l1228 0BE2  
+                       l1244 0C72                         l1180 0A92                         l1172 0A6A  
+                       l1164 0A32                         l1156 0A04                         l1094 0EA2  
+                       l1086 0E06                         l1078 0DB0                         l1246 0C84  
+                       l1238 0C3E                         l1190 0ADE                         l1182 0AA6  
+                       l1174 0A76                         l1158 0A0C                         l1096 0EA6  
+                       l1088 0E36                         l1248 0C90                         l1192 0AEE  
+                       l1176 0A7E                         l1184 0AB8                         l1168 0A46  
+                       l1098 0EA8                         l1194 0AF2                         l1186 0ACA  
+                       l1178 0A8E                         l1196 0B06                         l1188 0AD6  
+                       l1198 0B16                         STR_1 0833                         STR_2 085B  
+                       STR_3 0802                         STR_4 08C0                         STR_5 08D7  
+                       STR_6 08A0                         STR_7 0832                         STR_8 085A  
+                       STR_9 0801                         _LATD 000F8C                         _PEIE 007F96  
+                       _RCIE 007CED                         _RCIF 007CF5                         i2l47 0F76  
+                       _TXIE 007CEC                         _TXIF 007CF4                         _main 08EC  
+                       _var1 001F                         _var2 001D                         btemp 0024  
+                       start 000E                 ___param_bank 000000              __end_of___aldiv 0DB0  
+                      ?_main 0001                        STR_10 08BF                        STR_11 08D6  
+                      STR_12 0881                        _RS232 0008                        i2l880 0F74  
+                      i2l876 0F68                        i2l878 0F6C                        _RCREG 000FAE  
+                      _RCSTA 000FAB                        _SPBRG 000FAF                        _TRISC 000F94  
+                      _TRISD 000F95                        _TXREG 000FAD                        _TXSTA 000FAC  
+              ?_envia_serial 0001                        tablat 000FF5                        ttemp5 0025  
+                      ttemp6 0028                        ttemp7 002C                        status 000FD8  
+                      wtemp8 0025         inicializa_RS232@modo 0013              __initialization 0F30  
+               __end_of_main 0CA4                       ??_main 001B                __activetblptr 000001  
+                     ?_RS232 0001   inicializa_RS232@velocidade 000F               ??_envia_serial 0001  
+                     _OSCCON 000FD3                    ??___aldiv 0009           _envia_texto_serial 0EAC  
+                     clear_0 0F36                       _strlen 0EF6          ?_envia_texto_serial 0005  
+  envia_texto_serial@tamanho 0009                 __mediumconst 0000                       tblptrh 000FF7  
+                     tblptrl 000FF6                       tblptru 000FF8                   __accesstop 0060  
+    __end_of__initialization 0F3C         ??_envia_texto_serial 0007                ___rparam_used 000001  
+              __end_of_RS232 0F7A        inicializa_RS232@valor 0015               __pcstackCOMRAM 0001  
+       _inicializa_RS232$707 0017                      ??_RS232 0001    __size_of_inicializa_RS232 00FC  
+       __end_of_envia_serial 0F66                      ?_strlen 0001            envia_serial@valor 0001  
+                    __Hparam 0000                      __Lparam 0000             _flag_interrupcao 0021  
+                    ___aldiv 0CA4                 __psmallconst 0800                      __pcinit 0F30  
+                    __ramtop 0800                      __ptext0 08EC                      __ptext1 0DB0  
+                    __ptext2 0CA4                      __ptext3 0EAC                      __ptext4 0EF6  
+                    __ptext5 0F4E              __size_of_strlen 003A             ___aldiv@dividend 0001  
+             __pintcode_body 0F66         end_of_initialization 0F3C                      int_func 0F66  
+           ___aldiv@quotient 000B                      postinc0 000FEE                      strlen@a 0003  
+                    strlen@s 0001             _inicializa_RS232 0DB0        __size_of_envia_serial 0018  
+             __end_of_strlen 0F30          start_initialization 0F30                 _envia_serial 0F4E  
+__size_of_envia_texto_serial 004A                     ??_strlen 0003                  __pbssCOMRAM 001D  
+                  __pintcode 0008                     ?___aldiv 0001                  __smallconst 0800  
+             __size_of_RS232 0F72              ___aldiv@divisor 0005              ___aldiv@counter 0009  
+   __end_of_inicializa_RS232 0EAC                     __Hrparam 0000                     __Lrparam 0000  
+               __Lsmallconst 0800             __size_of___aldiv 010C     envia_texto_serial@indice 000A  
+                   _caracter 0023                __size_of_main 03B8                     int$flags 0024  
+    envia_texto_serial@frase 0005                     intlevel2 0000   __end_of_envia_texto_serial 0EF6  
+               ___aldiv@sign 000A  

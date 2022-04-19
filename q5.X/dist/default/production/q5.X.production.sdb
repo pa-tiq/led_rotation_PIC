@@ -1,0 +1,142 @@
+[p GLOBOPT AUTOSTATIC IEEE_FLT IEEE_DBL LFSROK EMI_WORD ]
+[d version 1.1 ]
+[d edition pro ]
+[d chip 18F4550 ]
+[d frameptr 4065 ]
+"7 C:\Program Files\Microchip\xc8\v2.30\pic\sources\c99\common\aldiv.c
+[v ___aldiv __aldiv `(l  1 e 4 0 ]
+"4 C:\Program Files\Microchip\xc8\v2.30\pic\sources\c99\common\fleq.c
+[v ___fleq __fleq `(b  1 e 0 0 ]
+"62 C:\Program Files\Microchip\xc8\v2.30\pic\sources\c99\common\float.c
+[v ___ftpack __ftpack `(f  1 e 4 0 ]
+"86 C:\Program Files\Microchip\xc8\v2.30\pic\sources\c99\common\ftadd.c
+[v ___ftadd __ftadd `(f  1 e 4 0 ]
+"54 C:\Program Files\Microchip\xc8\v2.30\pic\sources\c99\common\ftdiv.c
+[v ___ftdiv __ftdiv `(f  1 e 4 0 ]
+"62 C:\Program Files\Microchip\xc8\v2.30\pic\sources\c99\common\ftmul.c
+[v ___ftmul __ftmul `(f  1 e 4 0 ]
+"19 C:\Program Files\Microchip\xc8\v2.30\pic\sources\c99\common\ftsub.c
+[v ___ftsub __ftsub `(f  1 e 4 0 ]
+"10 C:\Program Files\Microchip\xc8\v2.30\pic\sources\c99\common\sprcadd.c
+[v ___fladd __fladd `(d  1 e 4 0 ]
+"245
+[v ___flsub __flsub `(d  1 e 4 0 ]
+"11 C:\Program Files\Microchip\xc8\v2.30\pic\sources\c99\common\sprcdiv.c
+[v ___fldiv __fldiv `(d  1 e 4 0 ]
+"8 C:\Program Files\Microchip\xc8\v2.30\pic\sources\c99\common\sprcmul.c
+[v ___flmul __flmul `(d  1 e 4 0 ]
+"5 C:\Program Files\Microchip\xc8\v2.30\pic\sources\c99\common\strlen.c
+[v _strlen strlen `(ui  1 e 2 0 ]
+"15 C:\Program Files\Microchip\xc8\v2.30\pic\sources\c99\common\Umul32.c
+[v ___lmul __lmul `(ul  1 e 4 0 ]
+"91 C:\Program Files\Microchip\xc8\v2.30\pic\sources\c99\common\Umul64.c
+[v ___omul __omul `(uo  1 e 8 0 ]
+"15 F:\Google Drive\Universidade\Microprocessadores e Microcontroladores\Prova2 (PIC)\q5.X\q5.c
+[v _RS232 RS232 `IIH(v  1 e 1 0 ]
+"22
+[v _inicializa_RS232 inicializa_RS232 `(v  1 e 1 0 ]
+"41
+[v _envia_serial envia_serial `(v  1 e 1 0 ]
+"47
+[v _envia_texto_serial envia_texto_serial `(v  1 e 1 0 ]
+"58
+[v _main main `(v  1 e 1 0 ]
+"3263 C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4550.h
+[v _LATD LATD `VEuc  1 e 1 @3980 ]
+"3847
+[v _TRISC TRISC `VEuc  1 e 1 @3988 ]
+"4001
+[v _TRISD TRISD `VEuc  1 e 1 @3989 ]
+"4936
+[v _RCSTA RCSTA `VEuc  1 e 1 @4011 ]
+"5146
+[v _TXSTA TXSTA `VEuc  1 e 1 @4012 ]
+"5402
+[v _TXREG TXREG `VEuc  1 e 1 @4013 ]
+"5414
+[v _RCREG RCREG `VEuc  1 e 1 @4014 ]
+"5426
+[v _SPBRG SPBRG `VEuc  1 e 1 @4015 ]
+"7986
+[v _OSCCON OSCCON `VEuc  1 e 1 @4051 ]
+"9741
+[v _GIE GIE `VEb  1 e 0 @32663 ]
+"10269
+[v _PEIE PEIE `VEb  1 e 0 @32662 ]
+"10440
+[v _RCIE RCIE `VEb  1 e 0 @31981 ]
+"10443
+[v _RCIF RCIF `VEb  1 e 0 @31989 ]
+"11040
+[v _TXIE TXIE `VEb  1 e 0 @31980 ]
+"11043
+[v _TXIF TXIF `VEb  1 e 0 @31988 ]
+"11 F:\Google Drive\Universidade\Microprocessadores e Microcontroladores\Prova2 (PIC)\q5.X\q5.c
+[v _caracter caracter `uc  1 e 1 0 ]
+"12
+[v _flag_interrupcao flag_interrupcao `i  1 e 2 0 ]
+"13
+[v _var1 var1 `i  1 e 2 0 ]
+[v _var2 var2 `i  1 e 2 0 ]
+"58
+[v _main main `(v  1 e 1 0 ]
+{
+"159
+} 0
+"22
+[v _inicializa_RS232 inicializa_RS232 `(v  1 e 1 0 ]
+{
+"25
+[v inicializa_RS232@valor valor `i  1 a 2 20 ]
+"22
+[v inicializa_RS232@velocidade velocidade `l  1 p 4 14 ]
+[v inicializa_RS232@modo modo `i  1 p 2 18 ]
+"39
+} 0
+"7 C:\Program Files\Microchip\xc8\v2.30\pic\sources\c99\common\aldiv.c
+[v ___aldiv __aldiv `(l  1 e 4 0 ]
+{
+"10
+[v ___aldiv@quotient quotient `l  1 a 4 10 ]
+"11
+[v ___aldiv@sign sign `uc  1 a 1 9 ]
+[v ___aldiv@counter counter `uc  1 a 1 8 ]
+"7
+[v ___aldiv@dividend dividend `l  1 p 4 0 ]
+[v ___aldiv@divisor divisor `l  1 p 4 4 ]
+"41
+} 0
+"47 F:\Google Drive\Universidade\Microprocessadores e Microcontroladores\Prova2 (PIC)\q5.X\q5.c
+[v _envia_texto_serial envia_texto_serial `(v  1 e 1 0 ]
+{
+"49
+[v envia_texto_serial@indice indice `uc  1 a 1 9 ]
+"50
+[v envia_texto_serial@tamanho tamanho `uc  1 a 1 8 ]
+"47
+[v envia_texto_serial@frase frase `*.32Cuc  1 p 2 4 ]
+"56
+} 0
+"5 C:\Program Files\Microchip\xc8\v2.30\pic\sources\c99\common\strlen.c
+[v _strlen strlen `(ui  1 e 2 0 ]
+{
+"7
+[v strlen@a a `*.32Cuc  1 a 2 2 ]
+"5
+[v strlen@s s `*.32Cuc  1 p 2 0 ]
+"12
+} 0
+"41 F:\Google Drive\Universidade\Microprocessadores e Microcontroladores\Prova2 (PIC)\q5.X\q5.c
+[v _envia_serial envia_serial `(v  1 e 1 0 ]
+{
+[v envia_serial@valor valor `uc  1 a 1 wreg ]
+[v envia_serial@valor valor `uc  1 a 1 wreg ]
+"43
+[v envia_serial@valor valor `uc  1 a 1 0 ]
+"46
+} 0
+"15
+[v _RS232 RS232 `IIH(v  1 e 1 0 ]
+{
+"20
+} 0
